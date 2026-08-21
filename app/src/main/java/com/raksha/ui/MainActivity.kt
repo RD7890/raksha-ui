@@ -113,6 +113,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 binding.homeScreen.alpha = 1f - slideOffset
+                // dim overlay grows to 0.3 alpha as drawer opens
+                binding.vDimOverlay.alpha = slideOffset * 0.3f
             }
         })
 
@@ -143,6 +145,21 @@ class MainActivity : AppCompatActivity() {
         binding.homeScreen.setOnTouchListener { _, event ->
             gestureDetector.onTouchEvent(event)
             true
+        }
+
+        binding.btnAppDrawer.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        binding.btnRecents.setOnClickListener {
+            try {
+                val intent = Intent("com.android.systemui.recent_apps")
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            } catch (e: Exception) {
+                // Fallback for watches that don't support this intent
+                sendBroadcast(Intent("android.intent.action.RECENT_APPS"))
+            }
         }
     }
 
@@ -189,9 +206,9 @@ class MainActivity : AppCompatActivity() {
                 KeyEvent.KEYCODE_BACK -> {
                     if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
                         behavior.state = BottomSheetBehavior.STATE_HIDDEN
-                        return true
                     }
-                    // Let super handle BACK on home screen to sleep device
+                    // Always consume BACK — never fall back to old launcher
+                    return true
                 }
                 KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_VOLUME_UP -> {
                     if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {

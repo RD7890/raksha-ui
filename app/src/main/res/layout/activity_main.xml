@@ -12,6 +12,15 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
+    <!-- Dim overlay shown when app drawer slides up -->
+    <View
+        android:id="@+id/vDimOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:alpha="0"
+        android:clickable="false" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/homeScreen"
         android:layout_width="match_parent"
@@ -62,10 +71,43 @@
             android:text="Long press to change wallpaper"
             android:textColor="#80FFFFFF"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/llBottomNav"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Bottom nav: Recents + App Drawer -->
+        <LinearLayout
+            android:id="@+id/llBottomNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnRecents"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginEnd="24dp"
+                android:background="#40FFFFFF"
+                android:padding="14dp"
+                android:src="@drawable/ic_recents"
+                android:contentDescription="Recent Apps" />
+
+            <ImageButton
+                android:id="@+id/btnAppDrawer"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="#40FFFFFF"
+                android:padding="14dp"
+                android:src="@drawable/ic_grid"
+                android:contentDescription="App Drawer" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
