@@ -305,16 +305,6 @@ class MainActivity : AppCompatActivity() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         val behavior = BottomSheetBehavior.from(binding.rvApps)
         return when (keyCode) {
-            KeyEvent.KEYCODE_BACK -> {
-                if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-                    behavior.state = BottomSheetBehavior.STATE_HIDDEN
-                    binding.vDimOverlay.animate().cancel()
-                    binding.vDimOverlay.alpha = 0f
-                    true
-                } else {
-                    super.onKeyDown(keyCode, event)
-                }
-            }
             KeyEvent.KEYCODE_VOLUME_UP -> {
                 if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
                     behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -343,24 +333,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        // Intercept BACK and MENU before the focused view (RecyclerView) can eat it.
-        // Many Chinese watches map the long/side button to KEYCODE_BACK or KEYCODE_MENU.
-        if (event.action == KeyEvent.ACTION_DOWN) {
-            val behavior = BottomSheetBehavior.from(binding.rvApps)
-            when (event.keyCode) {
-                KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_MENU -> {
-                    if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-                        behavior.state = BottomSheetBehavior.STATE_HIDDEN
-                        return true
-                    }
-                    // Drawer closed: consume BACK to stay in launcher.
-                    // MENU: let through so system menu can appear.
-                    if (event.keyCode == KeyEvent.KEYCODE_BACK) return true
-                }
-            }
+    override fun onBackPressed() {
+        val behavior = BottomSheetBehavior.from(binding.rvApps)
+        if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            behavior.state = BottomSheetBehavior.STATE_HIDDEN
+            binding.vDimOverlay.animate().cancel()
+            binding.vDimOverlay.alpha = 0f
+        } else {
+            super.onBackPressed()
         }
-        return super.dispatchKeyEvent(event)
     }
 
     override fun dispatchGenericMotionEvent(event: MotionEvent): Boolean {

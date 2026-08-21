@@ -9,7 +9,7 @@ class SoundManager(context: Context) {
     
     private var soundCharge: Int = 0
     private var soundWheel: Int = 0
-    private var soundDing: Int = 0
+    private var soundClick: Int = 0
     private var soundAlarm: Int = 0
     
     init {
@@ -25,7 +25,7 @@ class SoundManager(context: Context) {
             
         soundCharge = soundPool.load(context, R.raw.charge_tips, 1)
         soundWheel = soundPool.load(context, R.raw.wheel, 1)
-        soundDing = soundPool.load(context, R.raw.ding, 1)
+        soundClick = soundPool.load(context, R.raw.click, 1)
         soundAlarm = soundPool.load(context, R.raw.alarm3, 1)
     }
     
@@ -38,6 +38,6 @@ class SoundManager(context: Context) {
     }
     
     fun playDingSound() {
-        soundPool.play(soundDing, 0.8f, 0.8f, 1, 0, 1f)
+        soundPool.play(soundClick, 1f, 1f, 1, 0, 1f)
     }
 }
