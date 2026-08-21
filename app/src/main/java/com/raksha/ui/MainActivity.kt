@@ -197,42 +197,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openSystemRecentApps() {
-        // Attempt 1: Direct DW intent (without resolveActivity check which might fail)
-        try {
-            val intent = Intent()
-            intent.component = android.content.ComponentName("com.dw.recents", "com.dw.recents.presentation.view.activity.TaskListActivity")
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            return
-        } catch (e: Exception) {
-            e.printStackTrace()
+        if (isAccessibilityEnabled()) {
+            sendBroadcast(Intent(RakshaAccessibilityService.ACTION_OPEN_RECENTS))
+        } else {
+            android.widget.Toast.makeText(this, "Please enable Raksha UI in Accessibility to use Recent Apps", android.widget.Toast.LENGTH_LONG).show()
+            try {
+                val intent = Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
+    }
 
-        // Attempt 2: AOSP SystemUI intent
-        try {
-            val intent = Intent()
-            intent.component = android.content.ComponentName("com.android.systemui", "com.android.systemui.recents.RecentsActivity")
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            return
-        } catch (e: Exception) {
-            e.printStackTrace()
+    private fun isAccessibilityEnabled(): Boolean {
+        val expectedComponentName = android.content.ComponentName(this, RakshaAccessibilityService::class.java).flattenToString()
+        val enabledServicesSetting = android.provider.Settings.Secure.getString(contentResolver, android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES) ?: return false
+        val colonSplitter = android.text.TextUtils.SimpleStringSplitter(':')
+        colonSplitter.setString(enabledServicesSetting)
+        while (colonSplitter.hasNext()) {
+            val componentName = colonSplitter.next()
+            if (componentName.equals(expectedComponentName, ignoreCase = true)) {
+                return true
+            }
         }
-        
-        // Attempt 3: Shell keyevent (works on some modified OS without root)
-        try {
-            Runtime.getRuntime().exec("input keyevent 187")
-            return
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        
-        // Attempt 4: Root shell keyevent (if watch is rooted)
-        try {
-            Runtime.getRuntime().exec(arrayOf("su", "-c", "input keyevent 187"))
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        return false
     }
 
     private fun launchApp(packageName: String) {

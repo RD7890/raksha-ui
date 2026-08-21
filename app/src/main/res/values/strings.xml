@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Raksha UI</string>
+    <string name="accessibility_service_description">Required by Raksha-UI to open the Recent Apps screen.</string>
 </resources>
