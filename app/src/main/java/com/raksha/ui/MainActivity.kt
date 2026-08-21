@@ -128,11 +128,24 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+        gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-                if (e1 != null && e1.y - e2.y > 50 && Math.abs(velocityY) > 100) {
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                    return true
+                if (e1 != null && e2 != null) {
+                    val diffY = e2.y - e1.y
+                    // Swipe down
+                    if (diffY > 100 && Math.abs(velocityY) > 100) {
+                        showControlCenter()
+                        return true
+                    }
+                    // Swipe up
+                    else if (diffY < -50 && Math.abs(velocityY) > 100) {
+                        if (isControlCenterVisible) {
+                            hideControlCenter()
+                        } else {
+                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        }
+                        return true
+                    }
                 }
                 return false
             }
@@ -172,22 +185,6 @@ class MainActivity : AppCompatActivity() {
         controlCenter = findViewById(R.id.controlCenter)
         setupControlCenter()
         
-        // Setup Swipe Down Gesture
-        gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-                if (e1 != null && e2 != null) {
-                    val diffY = e2.y - e1.y
-                    if (diffY > 100 && Math.abs(velocityY) > 100) {
-                        showControlCenter()
-                        return true
-                    } else if (diffY < -100 && Math.abs(velocityY) > 100) {
-                        hideControlCenter()
-                        return true
-                    }
-                }
-                return false
-            }
-        })
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
