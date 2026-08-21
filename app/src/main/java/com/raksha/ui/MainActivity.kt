@@ -154,20 +154,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRecents.setOnClickListener {
-            // On this watch, long pressing the physical side button opens the system menu
-            // where Recent Apps is accessible. The software button can try the system toggle.
+            // Toggle recents via AOSP StatusBar reflection — works on Android 8.1
             try {
-                val serviceIntent = Intent()
-                serviceIntent.setClassName("com.android.systemui", "com.android.systemui.recents.RecentsActivity")
-                serviceIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(serviceIntent)
-            } catch (e: Exception) {
+                val statusBarService = Class.forName("android.app.StatusBarManager")
+                    .getMethod("toggleRecentApps")
+                val sbManager = getSystemService("statusbar")
+                statusBarService.invoke(sbManager)
+            } catch (e1: Exception) {
                 try {
-                    val am = getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager
-                    // Send toggle recents broadcast (works on some AOSP builds)
+                    // Fallback: IStatusBar via ServiceManager reflection
+                    val sm = Class.forName("android.os.ServiceManager")
+                    val binder = sm.getMethod("getService", String::class.java).invoke(null, "statusbar")
+                    val stub = Class.forName("com.android.internal.statusbar.IStatusBar\$Stub")
+                    val iface = stub.getMethod("asInterface", android.os.IBinder::class.java).invoke(null, binder)
+                    iface?.javaClass?.getMethod("toggleRecentApps")?.invoke(iface)
+                } catch (e2: Exception) {
+                    // Final fallback: broadcast
                     sendBroadcast(Intent("com.android.systemui.recents.TOGGLE_RECENTS"))
-                } catch (ex: Exception) {
-                    ex.printStackTrace()
                 }
             }
         }
@@ -179,7 +182,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvApps.layoutManager = lm
         binding.rvApps.setHasFixedSize(true)
         binding.rvApps.setItemViewCacheSize(30)
-        binding.rvApps.isNestedScrollingEnabled = false
+        binding.rvApps.isNestedScrollingEnabled = true   // MUST be true for BottomSheet scroll to work correctly
         binding.rvApps.overScrollMode = View.OVER_SCROLL_NEVER
 
         lifecycleScope.launch(Dispatchers.Default) {
@@ -258,7 +261,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        // Only intercept generic motion (crown scroll) here
+        // Intercept BACK and MENU before the focused view (RecyclerView) can eat it.
+        // Many Chinese watches map the long/side button to KEYCODE_BACK or KEYCODE_MENU.
+        if (event.action == KeyEvent.ACTION_DOWN) {
+            val behavior = BottomSheetBehavior.from(binding.rvApps)
+            when (event.keyCode) {
+                KeyEvent.KEYCODE_BACK, KeyEvent.KEYCODE_MENU -> {
+                    if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                        behavior.state = BottomSheetBehavior.STATE_HIDDEN
+                        return true
+                    }
+                    // Drawer closed: consume BACK to stay in launcher.
+                    // MENU: let through so system menu can appear.
+                    if (event.keyCode == KeyEvent.KEYCODE_BACK) return true
+                }
+            }
+        }
         return super.dispatchKeyEvent(event)
     }
 

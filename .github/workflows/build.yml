@@ -1,9 +1,9 @@
-name: Build Raksha APK
+name: Build Raksha UI APK
 
 on:
   push:
     branches: [ "main", "release/**" ]
-    paths-ignore: [ '**.md', '.github/**' ]
+    paths-ignore: [ '**.md', '.github/**', 'signing/**' ]
   workflow_dispatch: {}
 
 concurrency:
@@ -12,17 +12,18 @@ concurrency:
 
 permissions:
   contents: write
+  secrets: write
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
-    name: Build Raksha APK
+    name: Build Raksha UI APK
     runs-on: ubuntu-latest
 
     steps:
-      # ── 1. Checkout ────────────────────────────────────────────────────────────
+      # ── 1. Checkout ───────────────────────────────────────────────────────────
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -45,18 +46,33 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/libs.versions.toml') }}
           restore-keys: ${{ runner.os }}-gradle-
 
-      # ── 4. Signing keystore ───────────────────────────────────────────────────
-      - name: Restore or generate signing keystore
+      # ── 4. Persistent signing keystore ────────────────────────────────────────
+      #   On first run: generates a new keystore and commits it back to the repo
+      #   with [skip ci] so it never triggers another build loop.
+      #   Every future build just uses the committed file.
+      - name: Bootstrap signing keystore
         run: |
           mkdir -p signing
-          if [ -f signing/signing-key.jks ]; then
-            echo "Using committed keystore: $(wc -c < signing/signing-key.jks) bytes"
-          elif [ -n "${{ secrets.SIGNING_KEYSTORE_B64 }}" ]; then
-            echo "${{ secrets.SIGNING_KEYSTORE_B64 }}" | base64 -d > signing/signing-key.jks
-            echo "Keystore from secret: $(wc -c < signing/signing-key.jks) bytes"
+          if [ ! -f signing/signing-key.jks ]; then
+            echo "Keystore not found — generating persistent one."
+            keytool -genkeypair -v \
+              -keystore signing/signing-key.jks \
+              -storetype PKCS12 \
+              -storepass raksha123 \
+              -keypass raksha123 \
+              -alias raksha \
+              -keyalg RSA -keysize 2048 -validity 36500 \
+              -dname "CN=Raksha UI,OU=Mobile,O=RakshaUI,L=India,ST=Odisha,C=IN"
+
+            # Commit back so all future builds use this SAME key
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git config user.name  "github-actions[bot]"
+            git add signing/signing-key.jks
+            git commit -m "chore: persist signing keystore [skip ci]"
+            git push
+            echo "Keystore committed to repo."
           else
-            echo "Generating throwaway key since this is a fresh project"
-            keytool -genkeypair -v -keystore signing/signing-key.jks -storetype PKCS12 -storepass raksha123 -keypass raksha123 -alias raksha -keyalg RSA -keysize 2048 -validity 36500 -dname "CN=Raksha, OU=Mobile, O=Raksha, L=India, ST=Odisha, C=IN"
+            echo "Using existing keystore: $(wc -c < signing/signing-key.jks) bytes"
           fi
 
       # ── 5. local.properties ───────────────────────────────────────────────────
@@ -65,8 +81,8 @@ jobs:
           printf 'signing.storeFile=signing/signing-key.jks\nsigning.storePassword=raksha123\nsigning.keyAlias=raksha\nsigning.keyPassword=raksha123\n' \
             > local.properties
 
-      # ── 6. setup gradle ──────────────────────────────────────────────────────
-      - name: setup gradle
+      # ── 6. Setup Gradle ───────────────────────────────────────────────────────
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: '8.4'
@@ -92,8 +108,7 @@ jobs:
         id: version
         run: |
           VER=$(grep 'versionName' app/build.gradle.kts | grep -oP '"[^"]+"' | tr -d '"' | head -1)
-          echo "name=$VER"                      >> $GITHUB_OUTPUT
-          echo "apk_name=Raksha-v${VER}.apk"   >> $GITHUB_OUTPUT
+          echo "name=$VER"                          >> $GITHUB_OUTPUT
           echo "Version: $VER"
 
       # ── 10. Rename APKs ───────────────────────────────────────────────────────
@@ -101,68 +116,51 @@ jobs:
         run: |
           VER="${{ steps.version.outputs.name }}"
           OUTDIR="app/build/outputs/apk/release"
-          # Gradle splits naming: app-<abi>-release.apk  +  app-universal-release.apk
           declare -A ABI_LABELS=(
             ["armeabi-v7a"]="armv7-watch-32bit"
-            ["arm64-v8a"]="arm64-phone-64bit"
+            ["arm64-v8a"]="arm64-watch-64bit"
             ["x86_64"]="x86_64-emulator"
-            ["universal"]="universal-all-devices"
+            ["universal"]="universal"
           )
           for ABI in "${!ABI_LABELS[@]}"; do
             SRC="$OUTDIR/app-${ABI}-release.apk"
             if [ -f "$SRC" ]; then
-              DEST="$OUTDIR/Raksha-v${VER}-${ABI_LABELS[$ABI]}.apk"
+              DEST="$OUTDIR/Raksha-UI-v${VER}-${ABI_LABELS[$ABI]}.apk"
               cp "$SRC" "$DEST"
-              echo "Renamed: $SRC → $DEST"
+              echo "Renamed → $DEST"
             fi
           done
-          echo "All APKs in $OUTDIR:"
-          ls -lh "$OUTDIR"/Raksha-*.apk
+          echo "Output APKs:"
+          ls -lh "$OUTDIR"/Raksha-UI-*.apk
 
       # ── 11. Upload artifacts ──────────────────────────────────────────────────
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
-        continue-on-error: true          # storage quota se build block na ho
+        continue-on-error: true
         with:
-          name: Raksha-v${{ steps.version.outputs.name }}-all-apks
-          path: app/build/outputs/apk/release/Raksha-*.apk
-          retention-days: 1
+          name: Raksha-UI-v${{ steps.version.outputs.name }}-all-apks
+          path: app/build/outputs/apk/release/Raksha-UI-*.apk
+          retention-days: 3
 
       # ── 12. GitHub Release ────────────────────────────────────────────────────
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.name }}-build.${{ github.run_number }}
-          name: "Raksha v${{ steps.version.outputs.name }} (Build #${{ github.run_number }})"
+          name: "Raksha UI v${{ steps.version.outputs.name }}"
           body: |
-            ## Raksha v${{ steps.version.outputs.name }} — Automated Release
+            **Package:** `com.raksha.ui` | **Build:** #${{ github.run_number }} | **Commit:** `${{ github.sha }}`
 
-            **Branch:** `${{ github.ref_name }}` | **Commit:** `${{ github.sha }}`
-            **Package:** `com.raksha.ui`
-
-            ### APK Downloads — Pick the right one for your device
-
+            ### Download
             | File | Device |
             |------|--------|
-            | `Raksha-v${{ steps.version.outputs.name }}-armv7-watch-32bit.apk` | Android watches, 32-bit ARM phones |
-            | `Raksha-v${{ steps.version.outputs.name }}-arm64-phone-64bit.apk` | Modern Android phones (64-bit ARM) |
-            | `Raksha-v${{ steps.version.outputs.name }}-x86_64-emulator.apk` | x86 devices, emulators |
-            | `Raksha-v${{ steps.version.outputs.name }}-universal-all-devices.apk` | All devices (larger file) |
+            | `Raksha-UI-v${{ steps.version.outputs.name }}-armv7-watch-32bit.apk` | **S9 Ultra / 32-bit watches** ← Install this |
+            | `Raksha-UI-v${{ steps.version.outputs.name }}-arm64-watch-64bit.apk` | 64-bit ARM devices |
+            | `Raksha-UI-v${{ steps.version.outputs.name }}-universal.apk` | All devices (larger) |
 
-            ### Changes in this build
-            - **Always sends SOS** — even when GPS fix is unavailable, message is sent without coordinates
-            - **Guaranteed restart** — listening always resumes after any SOS flow (fix/fail/cancel)
-            - **Watch compatible** — native `LocationManager` fallback when Google Play Services absent
-            - **Keyword sensitivity** — lowered RMS and frame thresholds for short/normal-volume keywords
-
-            ### Install
-            1. Download the APK for your device (see table above)
-            2. Enable **Install from unknown sources** in Settings
-            3. Install and grant Mic, SMS, Location permissions
-            4. Add trusted contacts → Set keyword → Activate
-
+            > Long-press the home screen to set your wallpaper.
           draft: false
           prerelease: false
-          files: app/build/outputs/apk/release/Raksha-*.apk
+          files: app/build/outputs/apk/release/Raksha-UI-*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
