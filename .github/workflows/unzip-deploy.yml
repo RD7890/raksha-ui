@@ -1,0 +1,50 @@
+name: Deploy from ZIP
+
+on:
+  push:
+    paths:
+      - 'updates/*.zip'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  extract-and-deploy:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find and extract zip
+        run: |
+          ZIP_FILE=$(find updates -name "*.zip" | head -n 1)
+          if [ -z "$ZIP_FILE" ]; then
+            echo "No zip found in updates/"
+            exit 1
+          fi
+          echo "Extracting $ZIP_FILE"
+          TMP_DIR=$(mktemp -d)
+          unzip -q "$ZIP_FILE" -d "$TMP_DIR"
+
+          SRC_DIR="$TMP_DIR"
+          ENTRY_COUNT=$(find "$TMP_DIR" -mindepth 1 -maxdepth 1 | wc -l)
+          FIRST_ENTRY=$(find "$TMP_DIR" -mindepth 1 -maxdepth 1)
+          if [ "$ENTRY_COUNT" -eq 1 ] && [ -d "$FIRST_ENTRY" ]; then
+            SRC_DIR="$FIRST_ENTRY"
+          fi
+
+          rsync -a --exclude='.git' --exclude='.github' "$SRC_DIR"/ ./
+          rm -rf "$TMP_DIR"
+          rm "$ZIP_FILE"
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add -A
+          git diff --cached --quiet || git commit -m "Auto-deploy from uploaded zip"
+          git push
