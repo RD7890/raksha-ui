@@ -159,7 +159,7 @@
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/circle_bg"
-                android:src="@android:drawable/stat_sys_data_bluetooth" 
+                android:src="@android:drawable/ic_menu_share" 
                 android:padding="15dp"
                 android:tint="#FFFFFF" />
 
@@ -169,7 +169,7 @@
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/circle_bg"
-                android:src="@android:drawable/ic_lock_silent_mode_off" 
+                android:src="@android:drawable/ic_menu_close_clear_cancel" 
                 android:padding="15dp"
                 android:tint="#FFFFFF" />
                 
