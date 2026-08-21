@@ -68,6 +68,8 @@ jobs:
       # ── 6. setup gradle ──────────────────────────────────────────────────────
       - name: setup gradle
         uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.4'
 
       # ── 7. Auto version bump ──────────────────────────────────────────────────
       - name: Bump version
