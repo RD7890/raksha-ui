@@ -12,6 +12,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ImageView
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.IntentFilter
+import android.os.BatteryManager
 import android.widget.TextClock
 import android.widget.FrameLayout
 import androidx.activity.result.contract.ActivityResultContracts
@@ -43,6 +47,18 @@ class MainActivity : AppCompatActivity() {
     
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var gestureDetector: GestureDetector
+    private lateinit var soundManager: SoundManager
+
+    private val batteryReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == Intent.ACTION_POWER_CONNECTED) {
+                soundManager.playChargeSound()
+                val chargeIntent = Intent(context, ChargeActivity::class.java)
+                chargeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(chargeIntent)
+            }
+        }
+    }
 
     private val updateTimeTask = object : Runnable {
         override fun run() {
@@ -77,6 +93,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        soundManager = SoundManager(this)
+
         loadWallpaper()
         setupBottomSheetAndGestures()
         loadAppsOptimized()
@@ -104,12 +122,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        val filter = IntentFilter(Intent.ACTION_POWER_CONNECTED)
+        registerReceiver(batteryReceiver, filter)
         handler.post(updateTimeTask)
         binding.rvApps.requestFocus()
     }
 
     override fun onPause() {
         super.onPause()
+        try {
+            unregisterReceiver(batteryReceiver)
+        } catch (e: Exception) {}
         handler.removeCallbacks(updateTimeTask)
     }
 
@@ -132,6 +155,17 @@ class MainActivity : AppCompatActivity() {
                 binding.homeScreen.alpha = 1f - slideOffset
                 // dim overlay grows to 0.3 alpha as drawer opens
                 binding.vDimOverlay.alpha = slideOffset * 0.3f
+            }
+        })
+        
+        binding.rvApps.layoutManager = LinearLayoutManager(this)
+        
+        binding.rvApps.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (Math.abs(dy) > 5) {
+                    soundManager.playWheelSound()
+                }
             }
         })
 
@@ -239,6 +273,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun launchApp(packageName: String) {
+        soundManager.playDingSound()
         val intent = packageManager.getLaunchIntentForPackage(packageName)
         if (intent != null) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
