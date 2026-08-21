@@ -17,7 +17,7 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.RakshaUI.NoActionBar" />
+            android:theme="@style/Theme.RakshaUI" />
 
         <receiver
             android:name=".PowerConnectionReceiver"
