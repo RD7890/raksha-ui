@@ -154,24 +154,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRecents.setOnClickListener {
-            // Toggle recents via AOSP StatusBar reflection — works on Android 8.1
+            // Launch specific Watch recent apps manager (found via reverse engineering)
             try {
-                val statusBarService = Class.forName("android.app.StatusBarManager")
-                    .getMethod("toggleRecentApps")
-                val sbManager = getSystemService("statusbar")
-                statusBarService.invoke(sbManager)
-            } catch (e1: Exception) {
-                try {
-                    // Fallback: IStatusBar via ServiceManager reflection
-                    val sm = Class.forName("android.os.ServiceManager")
-                    val binder = sm.getMethod("getService", String::class.java).invoke(null, "statusbar")
-                    val stub = Class.forName("com.android.internal.statusbar.IStatusBar\$Stub")
-                    val iface = stub.getMethod("asInterface", android.os.IBinder::class.java).invoke(null, binder)
-                    iface?.javaClass?.getMethod("toggleRecentApps")?.invoke(iface)
-                } catch (e2: Exception) {
-                    // Final fallback: broadcast
-                    sendBroadcast(Intent("com.android.systemui.recents.TOGGLE_RECENTS"))
+                val intent = Intent()
+                intent.component = android.content.ComponentName("com.dw.recents", "com.dw.recents.presentation.view.activity.TaskListActivity")
+                
+                // Check if the proprietary DW recents app exists
+                if (packageManager.resolveActivity(intent, 0) != null) {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                } else {
+                    // Fallback to Android SystemUI recents
+                    val fallbackIntent = Intent()
+                    fallbackIntent.component = android.content.ComponentName("com.android.systemui", "com.android.systemui.recents.RecentsActivity")
+                    fallbackIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(fallbackIntent)
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
