@@ -1,0 +1,33 @@
+﻿2026-08-21T01:06:47.0454506Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-21T01:06:47.0456690Z Post job cleanup.
+2026-08-21T01:06:47.2418637Z In post-action step
+2026-08-21T01:06:47.2428560Z Stopping all Gradle daemons before saving Gradle User Home state
+2026-08-21T01:06:47.2429416Z Stopping Gradle daemons for /home/runner/gradle-installations/installs/gradle-8.4
+2026-08-21T01:06:47.2441242Z (node:2723) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-08-21T01:06:47.2442337Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-21T01:06:47.2447369Z [command]/home/runner/gradle-installations/installs/gradle-8.4/bin/gradle --stop
+2026-08-21T01:06:48.1081008Z No Gradle daemons are running.
+2026-08-21T01:06:48.1188380Z ##[group]Caching Gradle state
+2026-08-21T01:06:48.1459446Z Caching generated-gradle-jars with path '/home/runner/.gradle/caches/8.4/generated-gradle-jars/gradle-api-8.4.jar' and cache key: gradle-generated-gradle-jars-v1-1a83665c481822ee3817bdf1f75747ae
+2026-08-21T01:06:48.1470304Z Caching generated-gradle-jars with path '/home/runner/.gradle/caches/8.4/generated-gradle-jars/gradle-kotlin-dsl-extensions-8.4.jar' and cache key: gradle-generated-gradle-jars-v1-d75b4744b9d265c82f2e8033a6ad7da2
+2026-08-21T01:06:48.1655570Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/raksha-ui/raksha-ui --files-from manifest.txt --use-compress-program zstdmt
+2026-08-21T01:06:48.1657313Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/raksha-ui/raksha-ui --files-from manifest.txt --use-compress-program zstdmt
+2026-08-21T01:06:48.2213163Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/8.4/generated-gradle-jars/gradle-kotlin-dsl-extensions-8.4.jar' and key: gradle-generated-gradle-jars-v1-d75b4744b9d265c82f2e8033a6ad7da2: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0qKSHagAAAADGGiAlz7MHS6CU63JGhkgbQ0gxQUEyMDMwODEzMDIzAEVkZ2U=
+2026-08-21T01:06:48.5618716Z Caching dependencies with path '/home/runner/.gradle/caches/modules-*/files-*/*/*/*/*' and cache key: gradle-dependencies-v1-bd589fa2945d4f427f4071fb525e1d36
+2026-08-21T01:06:48.6205432Z Caching instrumented-jars with path '/home/runner/.gradle/caches/jars-*/*/' and cache key: gradle-instrumented-jars-v1-322c2ca3245f2f19c3dc26334e8cf06a
+2026-08-21T01:06:48.6472117Z Caching kotlin-dsl with path '/home/runner/.gradle/caches/*/kotlin-dsl/accessors/*/
+2026-08-21T01:06:48.6473170Z /home/runner/.gradle/caches/*/kotlin-dsl/scripts/*/' and cache key: gradle-kotlin-dsl-v1-6c37aeba7af66f508ceb1358fe91a229
+2026-08-21T01:06:48.6772938Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/8.4/generated-gradle-jars/gradle-api-8.4.jar' and key: gradle-generated-gradle-jars-v1-1a83665c481822ee3817bdf1f75747ae: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0qKSHagAAAADMBLzf18y2TrOgvmjRzOzdQ0gxQUEyMDMwODEzMDYwAEVkZ2U=
+2026-08-21T01:06:48.7184676Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/raksha-ui/raksha-ui --files-from manifest.txt --use-compress-program zstdmt
+2026-08-21T01:06:48.7549786Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/raksha-ui/raksha-ui --files-from manifest.txt --use-compress-program zstdmt
+2026-08-21T01:06:48.8061156Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/*/kotlin-dsl/accessors/*/
+/home/runner/.gradle/caches/*/kotlin-dsl/scripts/*/' and key: gradle-kotlin-dsl-v1-6c37aeba7af66f508ceb1358fe91a229: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0qKSHagAAAADwp891J035RL4x0sE7QcjPQ0gxQUEyMDMwODEzMDQyAEVkZ2U=
+2026-08-21T01:06:48.9946092Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/raksha-ui/raksha-ui --files-from manifest.txt --use-compress-program zstdmt
+2026-08-21T01:06:49.7485117Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/modules-*/files-*/*/*/*/*' and key: gradle-dependencies-v1-bd589fa2945d4f427f4071fb525e1d36: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0qaSHagAAAAChDDVagIK9R6g6JXIJfSPzQ0gxQUEyMDMwODE0MDMxAEVkZ2U=
+2026-08-21T01:06:49.9965517Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/jars-*/*/' and key: gradle-instrumented-jars-v1-322c2ca3245f2f19c3dc26334e8cf06a: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0qaSHagAAAACktfj2/gqYQIl9KNAaRZHtQ0gxQUEyMDMwODE0MDQwAEVkZ2U=
+2026-08-21T01:06:50.0835794Z Caching Gradle User Home with cache key: gradle-home-v1|Linux|build[dc093577260a018f5529f31ec7161842]-fd835544c4c4ab1249340b0c003dbadcf964350c
+2026-08-21T01:06:50.0921450Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/raksha-ui/raksha-ui --files-from manifest.txt --use-compress-program zstdmt
+2026-08-21T01:06:50.3719451Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches,/home/runner/.gradle/notifications,/home/runner/.gradle/.setup-gradle' and key: gradle-home-v1|Linux|build[dc093577260a018f5529f31ec7161842]-fd835544c4c4ab1249340b0c003dbadcf964350c: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0qqSHagAAAADagzhZj2J/R7fIxIqt2mmFQ0gxQUEyMDMwODE0MDYwAEVkZ2U=
+2026-08-21T01:06:50.3722908Z ##[endgroup]
+2026-08-21T01:06:50.3723228Z Generating Job Summary
+2026-08-21T01:06:50.3734677Z Completed post-action step

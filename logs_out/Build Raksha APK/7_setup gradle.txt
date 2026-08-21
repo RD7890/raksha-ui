@@ -1,0 +1,33 @@
+﻿2026-08-21T00:59:21.0043298Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-21T00:59:21.0044704Z ##[group]Run gradle/actions/setup-gradle@v3
+2026-08-21T00:59:21.0044995Z with:
+2026-08-21T00:59:21.0045233Z   cache-disabled: false
+2026-08-21T00:59:21.0045473Z   cache-read-only: false
+2026-08-21T00:59:21.0045711Z   cache-write-only: false
+2026-08-21T00:59:21.0045974Z   cache-overwrite-existing: false
+2026-08-21T00:59:21.0046303Z   gradle-home-cache-includes: caches
+notifications
+
+2026-08-21T00:59:21.0046674Z   gradle-home-cache-cleanup: false
+2026-08-21T00:59:21.0047127Z   add-job-summary: always
+2026-08-21T00:59:21.0047393Z   add-job-summary-as-pr-comment: never
+2026-08-21T00:59:21.0047698Z   dependency-graph: disabled
+2026-08-21T00:59:21.0048234Z   dependency-graph-continue-on-failure: true
+2026-08-21T00:59:21.0048617Z   build-scan-publish: false
+2026-08-21T00:59:21.0048882Z   validate-wrappers: false
+2026-08-21T00:59:21.0049139Z   generate-job-summary: true
+2026-08-21T00:59:21.0049423Z   gradle-home-cache-strict-match: false
+2026-08-21T00:59:21.0049747Z   workflow-job-context: null
+2026-08-21T00:59:21.0052492Z   github-token: ***
+2026-08-21T00:59:21.0052720Z env:
+2026-08-21T00:59:21.0052939Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+2026-08-21T00:59:21.0053344Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-8/x64
+2026-08-21T00:59:21.0053865Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-8/x64
+2026-08-21T00:59:21.0054268Z ##[endgroup]
+2026-08-21T00:59:21.1920958Z (node:2308) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-08-21T00:59:21.1922591Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-21T00:59:21.2870601Z Merged default JDK locations into /home/runner/.m2/toolchains.xml
+2026-08-21T00:59:21.2872679Z ##[group]Restore Gradle state from cache
+2026-08-21T00:59:21.3977374Z ##[warning]Failed to restore gradle-home-v1|Linux|build[dc093577260a018f5529f31ec7161842]-d7138ff3c2aae1020eab0e3b0db783f7bf677a05: Error: Cache service responded with 400
+2026-08-21T00:59:21.4047632Z Gradle User Home cache not found. Will initialize empty.
+2026-08-21T00:59:21.4048997Z ##[endgroup]

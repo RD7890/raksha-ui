@@ -1,0 +1,33 @@
+﻿2026-08-21T01:02:04.2815980Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-21T01:02:04.2817781Z ##[group]Run actions/setup-java@v4
+2026-08-21T01:02:04.2818047Z with:
+2026-08-21T01:02:04.2818239Z   java-version: 17
+2026-08-21T01:02:04.2818456Z   distribution: temurin
+2026-08-21T01:02:04.2818686Z   java-package: jdk
+2026-08-21T01:02:04.2818901Z   check-latest: false
+2026-08-21T01:02:04.2819117Z   server-id: github
+2026-08-21T01:02:04.2819333Z   server-username: GITHUB_ACTOR
+2026-08-21T01:02:04.2819600Z   server-password: GITHUB_TOKEN
+2026-08-21T01:02:04.2819861Z   overwrite-settings: true
+2026-08-21T01:02:04.2820095Z   job-status: success
+2026-08-21T01:02:04.2822796Z   token: ***
+2026-08-21T01:02:04.2823004Z env:
+2026-08-21T01:02:04.2823216Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+2026-08-21T01:02:04.2823544Z ##[endgroup]
+2026-08-21T01:02:04.4555579Z ##[warning]setup-java v4 is deprecated and will no longer receive updates. Please migrate to actions/setup-java@v5.
+2026-08-21T01:02:04.4563802Z ##[group]Installed distributions
+2026-08-21T01:02:04.4613999Z Resolved Java 17.0.20+8 from tool-cache
+2026-08-21T01:02:04.4614590Z Setting Java 17.0.20+8 as the default
+2026-08-21T01:02:04.4623910Z (node:2310) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-08-21T01:02:04.4624691Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-21T01:02:04.4628003Z Creating toolchains.xml for JDK version 17 from temurin
+2026-08-21T01:02:04.4703284Z Writing to /home/runner/.m2/toolchains.xml
+2026-08-21T01:02:04.4703823Z 
+2026-08-21T01:02:04.4704040Z Java configuration:
+2026-08-21T01:02:04.4704531Z   Distribution: temurin
+2026-08-21T01:02:04.4704997Z   Version: 17.0.20+8
+2026-08-21T01:02:04.4705667Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-8/x64
+2026-08-21T01:02:04.4706253Z 
+2026-08-21T01:02:04.4706640Z ##[endgroup]
+2026-08-21T01:02:04.4720504Z Creating settings.xml with server-id: github
+2026-08-21T01:02:04.4757003Z Writing to /home/runner/.m2/settings.xml

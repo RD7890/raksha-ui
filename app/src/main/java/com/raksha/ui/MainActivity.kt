@@ -1,4 +1,4 @@
-package com.rohan.raksha
+package com.raksha.ui
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.rohan.raksha.databinding.ActivityMainBinding
+import com.raksha.ui.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
 import java.util.*
 

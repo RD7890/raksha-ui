@@ -1,0 +1,18 @@
+﻿2026-08-21T01:10:35.0570417Z ##[group]Run VER=$(grep 'versionName' app/build.gradle.kts | grep -oP '"[^"]+"' | tr -d '"' | head -1)
+2026-08-21T01:10:35.0571561Z [36;1mVER=$(grep 'versionName' app/build.gradle.kts | grep -oP '"[^"]+"' | tr -d '"' | head -1)[0m
+2026-08-21T01:10:35.0572175Z [36;1mecho "name=$VER"                      >> $GITHUB_OUTPUT[0m
+2026-08-21T01:10:35.0572610Z [36;1mecho "apk_name=Raksha-v${VER}.apk"   >> $GITHUB_OUTPUT[0m
+2026-08-21T01:10:35.0572984Z [36;1mecho "Version: $VER"[0m
+2026-08-21T01:10:35.0610131Z shell: /usr/bin/bash -e {0}
+2026-08-21T01:10:35.0610408Z env:
+2026-08-21T01:10:35.0610644Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+2026-08-21T01:10:35.0611570Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-8/x64
+2026-08-21T01:10:35.0612164Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-8/x64
+2026-08-21T01:10:35.0612659Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-08-21T01:10:35.0613017Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-08-21T01:10:35.0613526Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-08-21T01:10:35.0614028Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-08-21T01:10:35.0614607Z   DEVELOCITY_AUTO_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-08-21T01:10:35.0614984Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-08-21T01:10:35.0615480Z ##[endgroup]
+2026-08-21T01:10:35.0747804Z Version: 1.0.5

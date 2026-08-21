@@ -1,0 +1,20 @@
+﻿2026-08-21T01:07:53.6382262Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-21T01:07:53.6384246Z ##[group]Run actions/cache@v4
+2026-08-21T01:07:53.6384593Z with:
+2026-08-21T01:07:53.6384893Z   path: ~/.gradle/caches
+~/.gradle/wrapper
+
+2026-08-21T01:07:53.6385573Z   key: Linux-gradle-ebad1c95b84265d37ff5a884883e337f39c210a6cc6bf3986b13340149e919f8
+2026-08-21T01:07:53.6386246Z   restore-keys: Linux-gradle-
+2026-08-21T01:07:53.6386533Z   enableCrossOsArchive: false
+2026-08-21T01:07:53.6386806Z   fail-on-cache-miss: false
+2026-08-21T01:07:53.6387065Z   lookup-only: false
+2026-08-21T01:07:53.6387306Z   save-always: false
+2026-08-21T01:07:53.6387529Z env:
+2026-08-21T01:07:53.6387756Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+2026-08-21T01:07:53.6388190Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-8/x64
+2026-08-21T01:07:53.6389011Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-8/x64
+2026-08-21T01:07:53.6389454Z ##[endgroup]
+2026-08-21T01:07:53.7412230Z (node:2346) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-08-21T01:07:53.7413511Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-21T01:07:53.8736542Z Cache not found for input keys: Linux-gradle-ebad1c95b84265d37ff5a884883e337f39c210a6cc6bf3986b13340149e919f8, Linux-gradle-

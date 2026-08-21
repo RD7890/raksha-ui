@@ -138,7 +138,7 @@ jobs:
             ## Raksha v${{ steps.version.outputs.name }} — Automated Release
 
             **Branch:** `${{ github.ref_name }}` | **Commit:** `${{ github.sha }}`
-            **Package:** `com.rohan.raksha`
+            **Package:** `com.raksha.ui`
 
             ### APK Downloads — Pick the right one for your device
 

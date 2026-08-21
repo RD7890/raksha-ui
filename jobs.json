@@ -1,0 +1,169 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 96633063928,
+      "run_id": 32434582540,
+      "workflow_name": "Build Raksha APK",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/RD7890/raksha-ui/actions/runs/32434582540",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOT_IGTM8AAAAWf8eJ-A",
+      "head_sha": "70f111a4336437524082e7ad628cb3311c543b43",
+      "url": "https://api.github.com/repos/RD7890/raksha-ui/actions/jobs/96633063928",
+      "html_url": "https://github.com/RD7890/raksha-ui/actions/runs/32434582540/job/96633063928",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-08-21T00:57:30Z",
+      "started_at": "2026-08-21T00:57:32Z",
+      "completed_at": "2026-08-21T00:57:37Z",
+      "name": "Build Raksha APK",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-08-21T00:57:33Z",
+          "completed_at": "2026-08-21T00:57:35Z"
+        },
+        {
+          "name": "Checkout",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-08-21T00:57:35Z",
+          "completed_at": "2026-08-21T00:57:35Z"
+        },
+        {
+          "name": "Set up JDK 17",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-08-21T00:57:35Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Restore Gradle cache",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Restore or generate signing keystore",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 5,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Create local.properties",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "setup gradle",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Bump version",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 8,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Assemble Release APK",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 9,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Get version info",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Rename APKs",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Upload APK artifacts",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 12,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Create GitHub Release",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 13,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Post Restore Gradle cache",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 24,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Post Set up JDK 17",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Post Checkout",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-08-21T00:57:36Z",
+          "completed_at": "2026-08-21T00:57:36Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/RD7890/raksha-ui/check-runs/96633063928",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000001153,
+      "runner_name": "GitHub Actions 1000001153",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

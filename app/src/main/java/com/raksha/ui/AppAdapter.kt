@@ -1,9 +1,9 @@
-package com.rohan.raksha
+package com.raksha.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.rohan.raksha.databinding.ItemAppBinding
+import com.raksha.ui.databinding.ItemAppBinding
 
 class AppAdapter(
     private val apps: List<AppInfo>,

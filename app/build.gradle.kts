@@ -13,11 +13,11 @@ if (localPropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.rohan.raksha"
+    namespace = "com.raksha.ui"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.rohan.raksha"
+        applicationId = "com.raksha.ui"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
