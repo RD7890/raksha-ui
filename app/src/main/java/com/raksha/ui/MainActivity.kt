@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.GestureDetector
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -89,6 +90,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         handler.post(updateTimeTask)
+        binding.rvApps.requestFocus()
     }
 
     override fun onPause() {
@@ -103,11 +105,13 @@ class MainActivity : AppCompatActivity() {
         bottomSheetBehavior.peekHeight = 0
 
         bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {}
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    binding.rvApps.requestFocus()
+                }
+            }
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                // slideOffset goes from 0.0 (hidden) to 1.0 (expanded)
-                // Fade out the home screen so the time is hidden when app drawer opens
                 binding.homeScreen.alpha = 1f - slideOffset
             }
         })
@@ -178,12 +182,66 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @Suppress("DEPRECATION")
-    override fun onBackPressed() {
-        val bottomSheetBehavior = BottomSheetBehavior.from(binding.rvApps)
-        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        val behavior = BottomSheetBehavior.from(binding.rvApps)
+        if (event.action == KeyEvent.ACTION_DOWN) {
+            when (event.keyCode) {
+                KeyEvent.KEYCODE_BACK -> {
+                    if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                        behavior.state = BottomSheetBehavior.STATE_HIDDEN
+                        return true
+                    }
+                    // Let super handle BACK on home screen to sleep device
+                }
+                KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_VOLUME_UP -> {
+                    if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    } else {
+                        binding.rvApps.scrollBy(0, -60)
+                    }
+                    return true
+                }
+                KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                    if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    } else {
+                        binding.rvApps.scrollBy(0, 60)
+                    }
+                    return true
+                }
+                KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_DPAD_CENTER -> {
+                    if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        return true
+                    }
+                }
+                else -> {
+                    // Try to catch other watch stem keys
+                    if (event.keyCode == 264 || event.keyCode == 265 || event.keyCode == 266) {
+                        if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                            return true
+                        }
+                    }
+                }
+            }
         }
-        // Do nothing else on back button to stay in launcher
+        return super.dispatchKeyEvent(event)
+    }
+
+    override fun dispatchGenericMotionEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_SCROLL) {
+            val vScroll = event.getAxisValue(MotionEvent.AXIS_VSCROLL)
+            if (vScroll != 0f) {
+                val behavior = BottomSheetBehavior.from(binding.rvApps)
+                if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                } else {
+                    binding.rvApps.scrollBy(0, (-vScroll * 60).toInt())
+                }
+                return true
+            }
+        }
+        return super.dispatchGenericMotionEvent(event)
     }
 }
