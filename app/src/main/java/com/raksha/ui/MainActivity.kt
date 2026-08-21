@@ -49,6 +49,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var gestureDetector: GestureDetector
     private lateinit var soundManager: SoundManager
 
+    private val appUpdateReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val action = intent?.action
+            if (action == Intent.ACTION_PACKAGE_ADDED ||
+                action == Intent.ACTION_PACKAGE_REMOVED ||
+                action == Intent.ACTION_PACKAGE_REPLACED) {
+                loadAppsOptimized()
+            }
+        }
+    }
+
     private val batteryReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == Intent.ACTION_POWER_CONNECTED) {
@@ -124,6 +135,15 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         val filter = IntentFilter(Intent.ACTION_POWER_CONNECTED)
         registerReceiver(batteryReceiver, filter)
+        
+        val packageFilter = IntentFilter().apply {
+            addAction(Intent.ACTION_PACKAGE_ADDED)
+            addAction(Intent.ACTION_PACKAGE_REMOVED)
+            addAction(Intent.ACTION_PACKAGE_REPLACED)
+            addDataScheme("package")
+        }
+        registerReceiver(appUpdateReceiver, packageFilter)
+        
         handler.post(updateTimeTask)
         binding.rvApps.requestFocus()
     }
@@ -132,6 +152,7 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         try {
             unregisterReceiver(batteryReceiver)
+            unregisterReceiver(appUpdateReceiver)
         } catch (e: Exception) {}
         handler.removeCallbacks(updateTimeTask)
     }
@@ -285,14 +306,13 @@ class MainActivity : AppCompatActivity() {
         val behavior = BottomSheetBehavior.from(binding.rvApps)
         return when (keyCode) {
             KeyEvent.KEYCODE_BACK -> {
-                // Close drawer if open; otherwise let event through for screen lock
                 if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
                     behavior.state = BottomSheetBehavior.STATE_HIDDEN
+                    binding.vDimOverlay.animate().cancel()
+                    binding.vDimOverlay.alpha = 0f
                     true
                 } else {
-                    // Don't call super.onBackPressed — just block launcher exit.
-                    // The watch firmware handles screen-off at a lower level.
-                    true
+                    super.onKeyDown(keyCode, event)
                 }
             }
             KeyEvent.KEYCODE_VOLUME_UP -> {
