@@ -10,6 +10,8 @@ import android.view.GestureDetector
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -33,6 +35,11 @@ class MainActivity : AppCompatActivity() {
 
     private val wallpaperFile by lazy { File(filesDir, "custom_wallpaper.jpg") }
     private var allAppsList: List<AppInfo> = emptyList()
+    
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    private lateinit var controlCenter: LinearLayout
+    private lateinit var gestureDetector: GestureDetector
+    private var isControlCenterVisible = false
 
     private val updateTimeTask = object : Runnable {
         override fun run() {
@@ -159,6 +166,65 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnRecents.setOnClickListener {
             openSystemRecentApps()
+        }
+        
+        // Setup Control Center
+        controlCenter = findViewById(R.id.controlCenter)
+        setupControlCenter()
+        
+        // Setup Swipe Down Gesture
+        gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+                if (e1 != null && e2 != null) {
+                    val diffY = e2.y - e1.y
+                    if (diffY > 100 && Math.abs(velocityY) > 100) {
+                        showControlCenter()
+                        return true
+                    } else if (diffY < -100 && Math.abs(velocityY) > 100) {
+                        hideControlCenter()
+                        return true
+                    }
+                }
+                return false
+            }
+        })
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        gestureDetector.onTouchEvent(ev)
+        return super.dispatchTouchEvent(ev)
+    }
+    
+    private fun showControlCenter() {
+        if (!isControlCenterVisible) {
+            controlCenter.animate().translationY(0f).setDuration(300).start()
+            isControlCenterVisible = true
+        }
+    }
+    
+    private fun hideControlCenter() {
+        if (isControlCenterVisible) {
+            controlCenter.animate().translationY(-2000f).setDuration(300).start()
+            isControlCenterVisible = false
+        }
+    }
+
+    private fun setupControlCenter() {
+        findViewById<ImageView>(R.id.btnSettings).setOnClickListener {
+            startActivity(Intent(android.provider.Settings.ACTION_SETTINGS))
+            hideControlCenter()
+        }
+        findViewById<ImageView>(R.id.btnWifi).setOnClickListener {
+            startActivity(Intent(android.provider.Settings.ACTION_WIFI_SETTINGS))
+            hideControlCenter()
+        }
+        findViewById<ImageView>(R.id.btnBluetooth).setOnClickListener {
+            startActivity(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS))
+            hideControlCenter()
+        }
+        findViewById<ImageView>(R.id.btnDnd).setOnClickListener {
+            startActivity(Intent(android.provider.Settings.ACTION_SOUND_SETTINGS))
+            hideControlCenter()
         }
     }
 

@@ -12,6 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RakshaUI">
         <activity
+            android:name=".ChargeActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.RakshaUI.NoActionBar" />
+
+        <receiver
+            android:name=".PowerConnectionReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
