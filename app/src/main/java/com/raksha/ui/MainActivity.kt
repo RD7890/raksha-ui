@@ -1,13 +1,20 @@
 package com.raksha.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.GestureDetector
+import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.raksha.ui.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -16,23 +23,25 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val handler = Handler(Looper.getMainLooper())
     private val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-    private val dateFormat = SimpleDateFormat("EEEE, d MMM", Locale.getDefault())
+    private val dateFormat = SimpleDateFormat("EEE   MM/dd", Locale.getDefault())
 
     private val updateTimeTask = object : Runnable {
         override fun run() {
             val now = Date()
             binding.tvClock.text = timeFormat.format(now)
-            binding.tvDate.text = dateFormat.format(now)
+            binding.tvDate.text = dateFormat.format(now).uppercase()
             handler.postDelayed(this, 1000)
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadApps()
+        setupBottomSheetAndGestures()
+        loadAppsOptimized()
     }
 
     override fun onResume() {
@@ -45,26 +54,61 @@ class MainActivity : AppCompatActivity() {
         handler.removeCallbacks(updateTimeTask)
     }
 
-    private fun loadApps() {
-        val intent = Intent(Intent.ACTION_MAIN, null)
-        intent.addCategory(Intent.CATEGORY_LAUNCHER)
-        
-        val apps = packageManager.queryIntentActivities(intent, 0)
-        val appList = apps.mapNotNull { info ->
-            try {
-                AppInfo(
-                    name = info.loadLabel(packageManager),
-                    packageName = info.activityInfo.packageName,
-                    icon = info.activityInfo.loadIcon(packageManager)
-                )
-            } catch (e: Exception) {
-                null
-            }
-        }.sortedBy { it.name.toString() }
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupBottomSheetAndGestures() {
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.rvApps)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior.peekHeight = 0
 
-        binding.rvApps.layoutManager = LinearLayoutManager(this)
-        binding.rvApps.adapter = AppAdapter(appList) { app ->
-            launchApp(app.packageName)
+        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+                if (e1 != null && e1.y - e2.y > 50 && Math.abs(velocityY) > 100) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    return true
+                }
+                return false
+            }
+
+            override fun onScroll(e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
+                if (distanceY > 10) {
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    return true
+                }
+                return false
+            }
+        })
+
+        binding.homeScreen.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+            true
+        }
+    }
+
+    private fun loadAppsOptimized() {
+        binding.rvApps.layoutManager = GridLayoutManager(this, 3)
+
+        lifecycleScope.launch(Dispatchers.Default) {
+            val intent = Intent(Intent.ACTION_MAIN, null)
+            intent.addCategory(Intent.CATEGORY_LAUNCHER)
+
+            val apps = packageManager.queryIntentActivities(intent, 0)
+            val appList = apps.mapNotNull { info ->
+                try {
+                    AppInfo(
+                        name = info.loadLabel(packageManager),
+                        packageName = info.activityInfo.packageName,
+                        icon = info.activityInfo.loadIcon(packageManager)
+                    )
+                } catch (e: Exception) {
+                    null
+                }
+            }.sortedBy { it.name.toString() }
+
+            withContext(Dispatchers.Main) {
+                binding.rvApps.adapter = AppAdapter(appList) { app ->
+                    launchApp(app.packageName)
+                }
+            }
         }
     }
 
@@ -78,6 +122,10 @@ class MainActivity : AppCompatActivity() {
     
     @Suppress("DEPRECATION")
     override fun onBackPressed() {
-        // Do nothing on back button to stay in launcher
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.rvApps)
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+        // Do nothing else on back button to stay in launcher
     }
 }

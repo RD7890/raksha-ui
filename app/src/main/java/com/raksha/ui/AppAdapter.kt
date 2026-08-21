@@ -12,7 +12,6 @@ class AppAdapter(
 
     inner class AppViewHolder(val binding: ItemAppBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(app: AppInfo) {
-            binding.tvName.text = app.name
             binding.ivIcon.setImageDrawable(app.icon)
             binding.root.setOnClickListener { onClick(app) }
         }
