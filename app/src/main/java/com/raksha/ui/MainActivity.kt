@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRecents.setOnClickListener {
-            showRecentApps(bottomSheetBehavior)
+            openSystemRecentApps()
         }
     }
 
@@ -196,38 +196,43 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showRecentApps(behavior: BottomSheetBehavior<*>) {
-        val am = getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager
-        
-        // Fetch recent tasks
-        val recentTasks = am.getRecentTasks(15, android.app.ActivityManager.RECENT_IGNORE_UNAVAILABLE)
-        
-        val recentAppInfos = mutableListOf<AppInfo>()
-        
-        for (task in recentTasks) {
-            val intent = task.baseIntent
-            val component = intent?.component
-            if (component != null) {
-                val pkgName = component.packageName
-                if (pkgName != packageName && pkgName != "com.android.systemui") {
-                    val appInfo = allAppsList.find { it.packageName == pkgName }
-                    if (appInfo != null && !recentAppInfos.contains(appInfo)) {
-                        recentAppInfos.add(appInfo)
-                    }
-                }
-            }
+    private fun openSystemRecentApps() {
+        // Attempt 1: Direct DW intent (without resolveActivity check which might fail)
+        try {
+            val intent = Intent()
+            intent.component = android.content.ComponentName("com.dw.recents", "com.dw.recents.presentation.view.activity.TaskListActivity")
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            return
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        // Attempt 2: AOSP SystemUI intent
+        try {
+            val intent = Intent()
+            intent.component = android.content.ComponentName("com.android.systemui", "com.android.systemui.recents.RecentsActivity")
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            return
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
         
-        binding.rvApps.adapter = AppAdapter(recentAppInfos) { app ->
-            val launchIntent = packageManager.getLaunchIntentForPackage(app.packageName)
-            if (launchIntent != null) {
-                launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
-                startActivity(launchIntent)
-            }
-            behavior.state = BottomSheetBehavior.STATE_HIDDEN
+        // Attempt 3: Shell keyevent (works on some modified OS without root)
+        try {
+            Runtime.getRuntime().exec("input keyevent 187")
+            return
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
         
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        // Attempt 4: Root shell keyevent (if watch is rooted)
+        try {
+            Runtime.getRuntime().exec(arrayOf("su", "-c", "input keyevent 187"))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun launchApp(packageName: String) {
