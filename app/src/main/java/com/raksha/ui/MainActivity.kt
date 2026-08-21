@@ -103,6 +103,8 @@ class MainActivity : AppCompatActivity() {
         val bottomSheetBehavior = BottomSheetBehavior.from(binding.rvApps)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         bottomSheetBehavior.peekHeight = 0
+        bottomSheetBehavior.isHideable = true
+        bottomSheetBehavior.skipCollapsed = true
 
         bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -152,19 +154,33 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRecents.setOnClickListener {
+            // On this watch, long pressing the physical side button opens the system menu
+            // where Recent Apps is accessible. The software button can try the system toggle.
             try {
-                val intent = Intent("com.android.systemui.recent_apps")
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
+                val serviceIntent = Intent()
+                serviceIntent.setClassName("com.android.systemui", "com.android.systemui.recents.RecentsActivity")
+                serviceIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(serviceIntent)
             } catch (e: Exception) {
-                // Fallback for watches that don't support this intent
-                sendBroadcast(Intent("android.intent.action.RECENT_APPS"))
+                try {
+                    val am = getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager
+                    // Send toggle recents broadcast (works on some AOSP builds)
+                    sendBroadcast(Intent("com.android.systemui.recents.TOGGLE_RECENTS"))
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
             }
         }
     }
 
     private fun loadAppsOptimized() {
-        binding.rvApps.layoutManager = LinearLayoutManager(this)
+        val lm = LinearLayoutManager(this)
+        lm.isItemPrefetchEnabled = true
+        binding.rvApps.layoutManager = lm
+        binding.rvApps.setHasFixedSize(true)
+        binding.rvApps.setItemViewCacheSize(30)
+        binding.rvApps.isNestedScrollingEnabled = false
+        binding.rvApps.overScrollMode = View.OVER_SCROLL_NEVER
 
         lifecycleScope.launch(Dispatchers.Default) {
             val intent = Intent(Intent.ACTION_MAIN, null)
@@ -199,50 +215,50 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         val behavior = BottomSheetBehavior.from(binding.rvApps)
-        if (event.action == KeyEvent.ACTION_DOWN) {
-            when (event.keyCode) {
-                KeyEvent.KEYCODE_BACK -> {
-                    if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-                        behavior.state = BottomSheetBehavior.STATE_HIDDEN
-                    }
-                    // Always consume BACK — never fall back to old launcher
-                    return true
-                }
-                KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_VOLUME_UP -> {
-                    if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
-                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                    } else {
-                        binding.rvApps.scrollBy(0, -60)
-                    }
-                    return true
-                }
-                KeyEvent.KEYCODE_DPAD_DOWN, KeyEvent.KEYCODE_VOLUME_DOWN -> {
-                    if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
-                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                    } else {
-                        binding.rvApps.scrollBy(0, 60)
-                    }
-                    return true
-                }
-                KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_DPAD_CENTER -> {
-                    if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
-                        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                        return true
-                    }
-                }
-                else -> {
-                    // Try to catch other watch stem keys
-                    if (event.keyCode == 264 || event.keyCode == 265 || event.keyCode == 266) {
-                        if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
-                            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                            return true
-                        }
-                    }
+        return when (keyCode) {
+            KeyEvent.KEYCODE_BACK -> {
+                // Close drawer if open; otherwise let event through for screen lock
+                if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                    behavior.state = BottomSheetBehavior.STATE_HIDDEN
+                    true
+                } else {
+                    // Don't call super.onBackPressed — just block launcher exit.
+                    // The watch firmware handles screen-off at a lower level.
+                    true
                 }
             }
+            KeyEvent.KEYCODE_VOLUME_UP -> {
+                if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                } else {
+                    binding.rvApps.smoothScrollBy(0, -120)
+                }
+                true
+            }
+            KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                } else {
+                    binding.rvApps.smoothScrollBy(0, 120)
+                }
+                true
+            }
+            KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_DPAD_CENTER -> {
+                if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    true
+                } else {
+                    super.onKeyDown(keyCode, event)
+                }
+            }
+            else -> super.onKeyDown(keyCode, event)
         }
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        // Only intercept generic motion (crown scroll) here
         return super.dispatchKeyEvent(event)
     }
 
