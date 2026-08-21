@@ -1,8 +1,0 @@
-2026-08-21T01:07:47.3630000Z Requested labels: ubuntu-latest
-2026-08-21T01:07:47.3630000Z Job defined at: RD7890/raksha-ui/.github/workflows/build.yml@refs/heads/main
-2026-08-21T01:07:47.3630000Z Waiting for a runner to pick up this job...
-2026-08-21T01:07:47.3650000Z Job is about to start running on the hosted runner: GitHub Actions 1000001157
-2026-08-21T01:07:47.3650000Z Job is waiting for a hosted runner to come online.
-2026-08-21T01:07:47.3620000Z Evaluating build.if
-2026-08-21T01:07:47.3620000Z Evaluating: success()
-2026-08-21T01:07:47.3620000Z Result: true

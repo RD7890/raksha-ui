@@ -1,9 +1,0 @@
-﻿2026-08-21T01:02:07.0079652Z ##[group]Run printf 'signing.storeFile=signing/signing-key.jks\nsigning.storePassword=raksha123\nsigning.keyAlias=raksha\nsigning.keyPassword=raksha123\n' \
-2026-08-21T01:02:07.0080859Z [36;1mprintf 'signing.storeFile=signing/signing-key.jks\nsigning.storePassword=raksha123\nsigning.keyAlias=raksha\nsigning.keyPassword=raksha123\n' \[0m
-2026-08-21T01:02:07.0081558Z [36;1m  > local.properties[0m
-2026-08-21T01:02:07.0118651Z shell: /usr/bin/bash -e {0}
-2026-08-21T01:02:07.0118932Z env:
-2026-08-21T01:02:07.0119161Z   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-2026-08-21T01:02:07.0119593Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-8/x64
-2026-08-21T01:02:07.0120111Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-8/x64
-2026-08-21T01:02:07.0120513Z ##[endgroup]

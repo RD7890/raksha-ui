@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val dateFormat = SimpleDateFormat("EEE   MM/dd", Locale.getDefault())
 
     private val wallpaperFile by lazy { File(filesDir, "custom_wallpaper.jpg") }
+    private var allAppsList: List<AppInfo> = emptyList()
 
     private val updateTimeTask = object : Runnable {
         override fun run() {
@@ -150,29 +151,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnAppDrawer.setOnClickListener {
+            binding.rvApps.adapter = AppAdapter(allAppsList) { app ->
+                launchApp(app.packageName)
+            }
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
         binding.btnRecents.setOnClickListener {
-            // Launch specific Watch recent apps manager (found via reverse engineering)
-            try {
-                val intent = Intent()
-                intent.component = android.content.ComponentName("com.dw.recents", "com.dw.recents.presentation.view.activity.TaskListActivity")
-                
-                // Check if the proprietary DW recents app exists
-                if (packageManager.resolveActivity(intent, 0) != null) {
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                } else {
-                    // Fallback to Android SystemUI recents
-                    val fallbackIntent = Intent()
-                    fallbackIntent.component = android.content.ComponentName("com.android.systemui", "com.android.systemui.recents.RecentsActivity")
-                    fallbackIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(fallbackIntent)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            showRecentApps(bottomSheetBehavior)
         }
     }
 
@@ -190,7 +176,7 @@ class MainActivity : AppCompatActivity() {
             intent.addCategory(Intent.CATEGORY_LAUNCHER)
 
             val apps = packageManager.queryIntentActivities(intent, 0)
-            val appList = apps.mapNotNull { info ->
+            allAppsList = apps.mapNotNull { info ->
                 try {
                     AppInfo(
                         name = info.loadLabel(packageManager),
@@ -203,11 +189,45 @@ class MainActivity : AppCompatActivity() {
             }.sortedBy { it.name.toString() }
 
             withContext(Dispatchers.Main) {
-                binding.rvApps.adapter = AppAdapter(appList) { app ->
+                binding.rvApps.adapter = AppAdapter(allAppsList) { app ->
                     launchApp(app.packageName)
                 }
             }
         }
+    }
+
+    private fun showRecentApps(behavior: BottomSheetBehavior<*>) {
+        val am = getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager
+        
+        // Fetch recent tasks
+        val recentTasks = am.getRecentTasks(15, android.app.ActivityManager.RECENT_IGNORE_UNAVAILABLE)
+        
+        val recentAppInfos = mutableListOf<AppInfo>()
+        
+        for (task in recentTasks) {
+            val intent = task.baseIntent
+            val component = intent?.component
+            if (component != null) {
+                val pkgName = component.packageName
+                if (pkgName != packageName && pkgName != "com.android.systemui") {
+                    val appInfo = allAppsList.find { it.packageName == pkgName }
+                    if (appInfo != null && !recentAppInfos.contains(appInfo)) {
+                        recentAppInfos.add(appInfo)
+                    }
+                }
+            }
+        }
+        
+        binding.rvApps.adapter = AppAdapter(recentAppInfos) { app ->
+            val launchIntent = packageManager.getLaunchIntentForPackage(app.packageName)
+            if (launchIntent != null) {
+                launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+                startActivity(launchIntent)
+            }
+            behavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+        
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     private fun launchApp(packageName: String) {
