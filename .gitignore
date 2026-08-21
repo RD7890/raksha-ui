@@ -1,0 +1,7 @@
+.env
+PAT.txt
+build/
+app/build/
+.gradle/
+*.iml
+local.properties
