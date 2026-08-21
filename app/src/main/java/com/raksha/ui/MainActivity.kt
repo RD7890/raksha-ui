@@ -12,10 +12,15 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ImageView
+import android.widget.TextClock
+import android.widget.FrameLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.target.ImageViewTarget
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.raksha.ui.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
@@ -75,6 +80,10 @@ class MainActivity : AppCompatActivity() {
         loadWallpaper()
         setupBottomSheetAndGestures()
         loadAppsOptimized()
+
+        if (savedInstanceState == null) {
+            showBootAnimation()
+        }
     }
 
     private fun loadWallpaper() {
@@ -166,9 +175,6 @@ class MainActivity : AppCompatActivity() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        binding.btnRecents.setOnClickListener {
-            openSystemRecentApps()
-        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
@@ -210,33 +216,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun openSystemRecentApps() {
-        if (isAccessibilityEnabled()) {
-            sendBroadcast(Intent(RakshaAccessibilityService.ACTION_OPEN_RECENTS))
-        } else {
-            android.widget.Toast.makeText(this, "Please enable Raksha UI in Accessibility to use Recent Apps", android.widget.Toast.LENGTH_LONG).show()
-            try {
-                val intent = Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    private fun isAccessibilityEnabled(): Boolean {
-        val expectedComponentName = android.content.ComponentName(this, RakshaAccessibilityService::class.java).flattenToString()
-        val enabledServicesSetting = android.provider.Settings.Secure.getString(contentResolver, android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES) ?: return false
-        val colonSplitter = android.text.TextUtils.SimpleStringSplitter(':')
-        colonSplitter.setString(enabledServicesSetting)
-        while (colonSplitter.hasNext()) {
-            val componentName = colonSplitter.next()
-            if (componentName.equals(expectedComponentName, ignoreCase = true)) {
-                return true
-            }
-        }
-        return false
+    private fun showBootAnimation() {
+        val overlay = findViewById<FrameLayout>(R.id.bootAnimationOverlay)
+        val img = findViewById<ImageView>(R.id.bootAnimationImage)
+        overlay.visibility = View.VISIBLE
+        
+        Glide.with(this)
+            .asGif()
+            .load(R.drawable.boot_animation)
+            .into(object : ImageViewTarget<GifDrawable>(img) {
+                override fun setResource(resource: GifDrawable?) {
+                    img.setImageDrawable(resource)
+                    resource?.setColorFilter(android.graphics.Color.parseColor("#ff99cc"), android.graphics.PorterDuff.Mode.SRC_ATOP)
+                }
+            })
+            
+        handler.postDelayed({
+            overlay.animate().alpha(0f).setDuration(500).withEndAction {
+                overlay.visibility = View.GONE
+            }.start()
+        }, 2000)
     }
 
     private fun launchApp(packageName: String) {
