@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val handler = Handler(Looper.getMainLooper())
-    private val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
     private val dateFormat = SimpleDateFormat("EEE   MM/dd", Locale.getDefault())
 
     private val wallpaperFile by lazy { File(filesDir, "custom_wallpaper.jpg") }
@@ -74,7 +73,8 @@ class MainActivity : AppCompatActivity() {
     private val updateTimeTask = object : Runnable {
         override fun run() {
             val now = Date()
-            binding.tvClock.text = timeFormat.format(now)
+            val timeFmt = android.text.format.DateFormat.getTimeFormat(this@MainActivity)
+            binding.tvClock.text = timeFmt.format(now)
             binding.tvDate.text = dateFormat.format(now).uppercase()
             handler.postDelayed(this, 1000)
         }
@@ -180,15 +180,6 @@ class MainActivity : AppCompatActivity() {
         })
         
         binding.rvApps.layoutManager = LinearLayoutManager(this)
-        
-        binding.rvApps.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (Math.abs(dy) > 5) {
-                    soundManager.playWheelSound()
-                }
-            }
-        })
 
         gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {

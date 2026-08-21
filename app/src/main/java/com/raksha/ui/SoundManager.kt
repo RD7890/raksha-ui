@@ -8,7 +8,6 @@ class SoundManager(context: Context) {
     private val soundPool: SoundPool
     
     private var soundCharge: Int = 0
-    private var soundWheel: Int = 0
     private var soundClick: Int = 0
     private var soundAlarm: Int = 0
     
@@ -24,17 +23,12 @@ class SoundManager(context: Context) {
             .build()
             
         soundCharge = soundPool.load(context, R.raw.charge_tips, 1)
-        soundWheel = soundPool.load(context, R.raw.wheel, 1)
         soundClick = soundPool.load(context, R.raw.click, 1)
         soundAlarm = soundPool.load(context, R.raw.alarm3, 1)
     }
     
     fun playChargeSound() {
         soundPool.play(soundCharge, 1f, 1f, 1, 0, 1f)
-    }
-    
-    fun playWheelSound() {
-        soundPool.play(soundWheel, 0.2f, 0.2f, 1, 0, 1f)
     }
     
     fun playDingSound() {
