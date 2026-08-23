@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:padding="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/vioce_imageview" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/top_shortcut_voice" />
+    <com.dw.launcher.ui.view.ScrollableSeekBar android:id="@id/voice_seekbar" android:layout_width="match_parent" android:layout_height="50.0dp" android:maxHeight="8.0dp" android:max="100" android:progress="15" android:progressDrawable="@drawable/voice_seekbar" android:minHeight="8.0dp" android:thumb="@drawable/vioce_seekbar_thumb" android:splitTrack="false" />
+</LinearLayout>

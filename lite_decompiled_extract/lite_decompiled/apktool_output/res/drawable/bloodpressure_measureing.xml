@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:oneshot="false"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:duration="200" android:drawable="@drawable/beat_0" />
+    <item android:duration="200" android:drawable="@drawable/beat_1" />
+    <item android:duration="200" android:drawable="@drawable/beat_2" />
+    <item android:duration="200" android:drawable="@drawable/beat_3" />
+    <item android:duration="200" android:drawable="@drawable/beat_4" />
+    <item android:duration="200" android:drawable="@drawable/beat_5" />
+    <item android:duration="200" android:drawable="@drawable/beat_6" />
+    <item android:duration="200" android:drawable="@drawable/beat_7" />
+    <item android:duration="200" android:drawable="@drawable/beat_8" />
+    <item android:duration="200" android:drawable="@drawable/beat_9" />
+    <item android:duration="200" android:drawable="@drawable/beat_10" />
+</animation-list>

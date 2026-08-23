@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/parent" android:layout_width="match_parent" android:layout_height="match_parent" android:layoutDirection="ltr"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/iv_background" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" />
+    <com.dw.launcher.ui.view.ForbidTopRecyclerView android:id="@id/cyclic_recycler_view" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1.0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.0" />
+    <View android:orientation="vertical" android:id="@id/guideline" android:layout_width="1.0dp" android:layout_height="1.0dp" android:layout_marginEnd="@dimen/half_cyclic_guideline" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <ImageView android:id="@id/cyclic_indicate" android:layout_width="@dimen/dashboard_half_cyclic_earth_size" android:layout_height="@dimen/dashboard_half_cyclic_earth_size" android:src="@drawable/dashboard_half_cyclic" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toEndOf="@id/guideline" app:layout_constraintTop_toTopOf="@id/cyclic_recycler_view" />
+</androidx.constraintlayout.widget.ConstraintLayout>

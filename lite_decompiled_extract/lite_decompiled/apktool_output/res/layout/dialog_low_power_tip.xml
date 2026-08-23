@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <net.center.blurview.ShapeBlurView android:id="@id/shapeBlurView" android:layout_width="match_parent" android:layout_height="match_parent" app:blur_radius="80.0dp" />
+    <FrameLayout android:paddingLeft="60.0dp" android:paddingTop="15.0dp" android:paddingRight="60.0dp" android:paddingBottom="10.0dp" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent">
+        <TextClock android:textSize="24.0sp" android:textColor="@color/white" android:layout_gravity="right" android:layout_width="wrap_content" android:layout_height="wrap_content" android:format12Hour="hh:mm" android:format24Hour="HH:mm" />
+    </FrameLayout>
+    <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView android:textSize="24.0sp" android:textColor="@color/white" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/low_mode_not_support" android:lineSpacingExtra="3.0dp" android:layout_marginStart="25.0dp" android:layout_marginEnd="25.0dp" />
+    </LinearLayout>
+    <TextView android:textSize="24.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center|bottom" android:id="@id/tv_ok" android:background="@drawable/solid_80ffffff_round" android:paddingTop="25.0dp" android:paddingBottom="25.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="35.0dp" android:text="@string/confirm" />
+</FrameLayout>

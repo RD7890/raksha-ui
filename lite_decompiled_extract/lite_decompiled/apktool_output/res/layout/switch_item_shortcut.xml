@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="4.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:id="@id/switch_shortcut_switch" android:background="@drawable/top_shortcut_container_background" android:padding="8.0dp" android:layout_width="@dimen/switch_shortcut_size" android:layout_height="@dimen/switch_shortcut_size" />
+</FrameLayout>

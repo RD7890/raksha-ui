@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="33" android:compileSdkVersionCodename="13" android:sharedUserId="android.uid.system" package="com.dw.launcher" platformBuildVersionCode="33" platformBuildVersionName="13">
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BODY_SENSORS"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/>
+    <uses-permission android:name="android.permission.CHANGE_COMPONENT_ENABLED_STATE"/>
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER_COMPONENT"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_BASIC_PHONE_STATE"/>
+    <application android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:dataExtractionRules="@xml/data_extraction_rules" android:extractNativeLibs="false" android:fullBackupContent="@xml/backup_rules" android:hardwareAccelerated="true" android:icon="@drawable/icon_menu_desktop" android:label="@string/app_name" android:largeHeap="true" android:name="com.dw.launcher.LauncherApplication" android:roundIcon="@drawable/icon_menu_desktop" android:supportsRtl="true" android:theme="@style/Theme.Launcher" android:usesCleartextTraffic="true">
+        <activity android:clearTaskOnLaunch="true" android:configChanges="keyboard|keyboardHidden|navigation|uiMode" android:enabled="true" android:exported="true" android:launchMode="singleTask" android:name="com.dw.launcher.Launcher" android:resizeableActivity="true" android:resumeWhilePausing="true" android:screenOrientation="nosensor" android:stateNotNeeded="true" android:taskAffinity="" android:theme="@style/Theme.Launcher" android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.MONKEY"/>
+                <category android:name="android.intent.category.LAUNCHER_APP"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.HOME"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="diwo.intent.action.CLOCK"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.dw.launcher.ACTION_SHOW_DASHBOARD"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:exported="true" android:icon="@drawable/icon_menu_desktop" android:label="@string/app_style" android:name="com.dw.launcher.ui.activity.PickDashboardActivity">
+            <intent-filter>
+                <action android:name="dw.intent.action.select_menu"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:exported="true" android:icon="@drawable/icon_menu_theme" android:label="@string/app_theme" android:name="com.dw.launcher.ui.activity.SetThemeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="dw.intent.action.select_theme"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:exported="true" android:name="com.dw.launcher.ui.activity.PickClockActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="dw.intent.action.select_dialer"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:exported="true" android:name="com.dw.launcher.ui.activity.ShutdownActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity android:exported="true" android:icon="@drawable/main_icon_ios_wallpaper2" android:label="@string/app_wallpaper" android:name="com.dw.launcher.ui.activity.SetWallpaperActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="dw.intent.action.select_theme"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:excludeFromRecents="true" android:exported="true" android:icon="@drawable/icon_item_powersave" android:label="@string/powerSaveMode" android:launchMode="singleTop" android:name="com.dw.launcher.ui.activity.PowerSaveActivity" android:noHistory="true" android:screenOrientation="portrait" android:theme="@style/Transparent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="dw.intent.action.powersave"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:excludeFromRecents="true" android:exported="true" android:launchMode="singleTask" android:name="com.dw.launcher.activity.ChargeActivity" android:screenOrientation="portrait"/>
+        <activity android:exported="true" android:name="com.dw.launcher.ui.activity.CustomWatchActivity" android:screenOrientation="portrait"/>
+        <activity android:excludeFromRecents="true" android:exported="true" android:launchMode="singleTop" android:name="com.dw.launcher.activity.NoDisturbActivity" android:screenOrientation="portrait"/>
+        <activity android:launchMode="singleTop" android:name="com.dw.launcher.ui.activity.SleepClockActivity" android:screenOrientation="portrait"/>
+        <activity android:launchMode="singleTop" android:name="com.dw.launcher.ui.activity.BreatheActivity" android:screenOrientation="portrait"/>
+        <activity android:launchMode="singleTop" android:name="com.dw.launcher.ui.activity.BreatheValueSettingActivity" android:screenOrientation="portrait"/>
+        <activity android:launchMode="singleTop" android:name="com.dw.launcher.ui.activity.BreatheSettingActivity" android:screenOrientation="portrait"/>
+        <activity android:launchMode="singleTop" android:name="com.dw.launcher.ui.activity.ComponentManagerActivity" android:screenOrientation="portrait"/>
+        <activity android:exported="true" android:name="com.dw.launcher.ui.fragment.dashboard.DashboardContainerActivity"/>
+        <activity android:exported="true" android:name="com.dw.launcher.ui.activity.CustomWallPaperActivity" android:screenOrientation="portrait"/>
+        <activity android:exported="true" android:launchMode="singleTop" android:name="com.dw.launcher.ui.activity.AddMenuShortcutActivity" android:screenOrientation="portrait"/>
+        <activity android:exported="true" android:launchMode="singleTop" android:name="com.dw.launcher.ui.activity.BubbleActivity" android:screenOrientation="portrait"/>
+        <activity android:exported="true" android:name="com.dw.launcher.ui.activity.LowBatteryActivity" android:screenOrientation="portrait"/>
+        <provider android:authorities="com.dw.launcher.config" android:exported="true" android:name="com.dw.launcher.data.provider.LauncherProvider"/>
+        <service android:exported="true" android:label="@string/accessibility_service_label" android:name="com.dw.launcher.core.notification.NotificationService" android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
+        <service android:enabled="true" android:exported="true" android:icon="@drawable/icon_custom_gallery" android:label="@string/app_name" android:name="com.dw.launcher.core.service.LauncherWallpaperService" android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter android:priority="1">
+                <action android:name="android.service.wallpaper.WallpaperService"/>
+            </intent-filter>
+            <meta-data android:name="android.service.wallpaper" android:resource="@xml/wallpaper"/>
+        </service>
+        <receiver android:exported="true" android:name="com.dw.launcher.core.receiver.SimCardBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.SIM_STATE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:exported="true" android:name="com.dw.launcher.core.receiver.WeatherUpdateReceiver">
+            <intent-filter>
+                <action android:name="com.divo.weather.update"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:enabled="true" android:exported="true" android:name="com.dw.launcher.tts.SmsReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:exported="true" android:name="com.dw.launcher.tts.BootCompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <service android:exported="true" android:name="com.android.launcher3.StepService">
+            <intent-filter>
+                <action android:name="com.android.launcher3.step"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
+        <service android:exported="true" android:name="com.dw.launcher.core.service.StepSensorService"/>
+        <service android:exported="true" android:name="com.dw.launcher.core.service.StepBySoProviderService"/>
+        <service android:exported="true" android:name="com.dw.launcher.core.service.ShortcutService"/>
+        <provider android:authorities="com.dw.launcher.data.provider.StepDataContentProvider" android:exported="true" android:name="com.dw.launcher.data.provider.StepDataContentProvider"/>
+        <meta-data android:name="BUGLY_APPID" android:value="19ea8262cf"/>
+        <meta-data android:name="BUGLY_APP_CHANNEL" android:value="LauncherIV"/>
+        <meta-data android:name="BUGLY_ENABLE_DEBUG" android:value="false"/>
+        <provider android:authorities="com.dw.launcher.androidx-startup" android:exported="false" android:name="androidx.startup.InitializationProvider">
+            <meta-data android:name="androidx.emoji2.text.EmojiCompatInitializer" android:value="androidx.startup"/>
+            <meta-data android:name="androidx.lifecycle.ProcessLifecycleInitializer" android:value="androidx.startup"/>
+            <meta-data android:name="androidx.profileinstaller.ProfileInstallerInitializer" android:value="androidx.startup"/>
+        </provider>
+        <service android:directBootAware="true" android:exported="false" android:name="androidx.room.MultiInstanceInvalidationService"/>
+        <receiver android:directBootAware="false" android:enabled="true" android:exported="true" android:name="androidx.profileinstaller.ProfileInstallReceiver" android:permission="android.permission.DUMP">
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.SKIP_FILE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION"/>
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

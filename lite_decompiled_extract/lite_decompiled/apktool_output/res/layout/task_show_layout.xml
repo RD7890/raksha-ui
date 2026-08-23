@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="#4cffffff" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <net.center.blurview.ShapeBlurView android:id="@id/shapeBlurView" android:layout_width="match_parent" android:layout_height="match_parent" app:blur_radius="20.0dp" app:is_transparent="true" />
+    <com.airbnb.lottie.LottieAnimationView android:id="@id/lottieAnimationView" android:layout_width="match_parent" android:layout_height="match_parent" app:lottie_autoPlay="true" app:lottie_fileName="task_guide.json" app:lottie_loop="true" />
+    <com.dw.oxygen.MarqueeTextView android:textSize="22.0sp" android:textColor="@color/black" android:id="@id/marqueeTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="50.0dp" android:text="@string/slide_to_task" android:layout_centerHorizontal="true" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" />
+</RelativeLayout>

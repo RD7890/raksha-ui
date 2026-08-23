@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:background="@color/black" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/top_title_height">
+        <TextView android:textSize="@dimen/title_text_size" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/titleBarMarginStart" android:text="@string/breathe" android:layout_centerVertical="true" />
+        <TextClock android:textSize="@dimen/title_text_size" android:id="@id/top_clock" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginEnd="@dimen/titleBarMarginEnd" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <ImageView android:id="@id/ivBreathe" android:background="@mipmap/breathe_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true" />
+    <TextView android:textSize="20.0sp" android:textColor="@color/white" android:id="@id/txtState" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="20.0dp" android:text="@string/inhale" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
+</RelativeLayout>

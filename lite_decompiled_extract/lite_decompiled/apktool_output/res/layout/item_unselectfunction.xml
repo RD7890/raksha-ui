@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/item_layout" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/bg" android:background="@mipmap/icon_item_breathe" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="12.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <ImageView android:id="@id/iv_select" android:padding="8.0dp" android:layout_width="50.0dp" android:layout_height="50.0dp" android:src="@mipmap/icon_functionadd" android:layout_alignParentRight="true" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/bg" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:tag="layout/fragment_simple_bloodpressure_0" android:background="@color/black" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/title_layout" android:layout_width="match_parent" android:layout_height="@dimen/top_title_height" android:paddingStart="@dimen/titleBarMarginStart" android:paddingEnd="@dimen/titleBarMarginEnd">
+        <TextView android:textSize="@dimen/title_text_size" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/bloodpressure" android:layout_centerVertical="true" android:format24Hour="HH:mm" />
+        <TextClock android:textSize="@dimen/title_text_size" android:textColor="@color/white" android:id="@id/top_clock" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/title_layout">
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerVertical="true">
+            <ImageView android:layout_gravity="center_vertical" android:id="@id/ivAnim" android:background="@drawable/bloodpressure_measureing" android:layout_width="56.0dp" android:layout_height="56.0dp" android:layout_marginStart="22.0dp" />
+            <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toEndOf="@id/ivAnim">
+                <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                    <TextView android:textSize="30.0sp" android:textColor="@color/white" android:id="@id/txtHeart_high" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:layout_marginStart="12.0dp" />
+                    <TextView android:textSize="40.0sp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="/" android:layout_marginStart="2.0dp" />
+                    <TextView android:textSize="30.0sp" android:textColor="@color/white" android:id="@id/txtHeart_low" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:layout_marginStart="2.0dp" />
+                    <TextView android:textSize="25.0sp" android:textColor="@color/color666" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="mmHg" android:layout_marginStart="5.0dp" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12.0dp">
+                    <TextView android:textSize="20.0sp" android:textColor="@color/color666" android:id="@id/txtStatus" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/not_measure" android:layout_marginStart="5.0dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <com.dw.bloodpressure.BloodPressChart android:id="@id/bloodPressChart" android:paddingTop="15.0dp" android:layout_width="match_parent" android:layout_height="150.0dp" android:layout_marginStart="15.0dp" android:layout_marginEnd="15.0dp" />
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="15.0dp">
+            <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="50.0dp">
+                <ImageView android:background="@mipmap/heart_up" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <TextView android:textSize="20.0sp" android:textColor="@color/white" android:id="@id/txtMaxOxygen" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="140" android:layout_marginStart="8.0dp" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="50.0dp" android:layout_alignParentEnd="true">
+                <ImageView android:background="@mipmap/heart_down" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <TextView android:textSize="20.0sp" android:textColor="@color/white" android:id="@id/txtMinOxygen" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="90" android:layout_marginStart="8.0dp" />
+            </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout android:gravity="center_horizontal" android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerVertical="true">
+            <TextView android:textSize="30.0sp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/average" />
+            <TextView android:textSize="30.0sp" android:textColor="@color/white" android:id="@id/txtAvgOxygen_high" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:layout_marginStart="12.0dp" />
+            <TextView android:textSize="40.0sp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="/" android:includeFontPadding="false" android:layout_marginStart="2.0dp" />
+            <TextView android:textSize="30.0sp" android:textColor="@color/white" android:id="@id/txtAvgOxygen_low" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:layout_marginStart="2.0dp" />
+            <TextView android:textSize="25.0sp" android:textColor="@color/color666" android:id="@id/txtUnit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="mmHg" android:layout_marginStart="5.0dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout android:id="@id/wrist_status" android:background="@color/black" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/title_layout">
+        <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@mipmap/bptip" />
+            <TextView android:textSize="22.0sp" android:textColor="@color/white" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tip" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

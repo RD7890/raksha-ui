@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/black" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/top_title_height" android:layout_marginTop="5.0dp">
+        <com.dw.oxygen.MarqueeTextView android:textSize="@dimen/title_text_size" android:textColor="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/titleBarMarginStart" android:text="@string/breathe" android:layout_centerVertical="true" android:layout_toStartOf="@id/top_clock" />
+        <TextClock android:textSize="@dimen/title_text_size" android:id="@id/top_clock" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginEnd="@dimen/titleBarMarginEnd" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <ImageView android:layout_gravity="center_horizontal" android:id="@id/ivStart" android:background="@mipmap/icon_breathe" android:layout_width="250.0dp" android:layout_height="250.0dp" />
+    <ImageView android:layout_gravity="center" android:id="@id/ivSetting" android:background="@mipmap/setting_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" />
+</LinearLayout>

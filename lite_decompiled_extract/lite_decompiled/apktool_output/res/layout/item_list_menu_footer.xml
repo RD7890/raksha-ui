@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center" android:paddingTop="@dimen/common_measure_368448_65dp" android:paddingBottom="@dimen/common_measure_368448_65dp" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="horizontal" android:id="@id/ll_menu_type" android:background="@drawable/shape_gray_honeyitem" android:paddingLeft="@dimen/common_measure_368448_32dp" android:paddingTop="@dimen/common_measure_368448_10dp" android:paddingRight="@dimen/common_measure_368448_32dp" android:paddingBottom="@dimen/common_measure_368448_10dp" android:layout_width="wrap_content" android:layout_height="wrap_content"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+        <ImageView android:id="@id/iv_icon" android:layout_width="@dimen/common_measure_368448_32dp" android:layout_height="@dimen/common_measure_368448_32dp" android:src="@mipmap/ios_menu_icon" />
+        <TextView android:textSize="28.0sp" android:textColor="#ffffffff" android:id="@id/tv_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ios_menu_type_cell" android:singleLine="true" android:layout_marginStart="12.0dp" />
+    </LinearLayout>
+</FrameLayout>

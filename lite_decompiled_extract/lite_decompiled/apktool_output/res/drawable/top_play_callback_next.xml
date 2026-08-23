@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="200.0dp" android:width="200.0dp" android:viewportWidth="1024.0" android:viewportHeight="1024.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="@color/top_shortcut_fill_color" android:pathData="M828.1,332h-80a4,4 0,0 0,-4 4v352a4,4 0,0 0,4 4h80a4,4 0,0 0,4 -4L832.1,336a4,4 0,0 0,-4 -4zM428.6,496.4L161.5,282.1a20,20 0,0 0,-32.5 15.6v428.6a20,20 0,0 0,32.5 15.6l267.1,-214.3a20.1,20.1 0,0 0,0 -31.2zM735.6,496.4l-267,-214.3c-13.1,-10.5 -32.6,-1.2 -32.6,15.6v428.6c0,16.8 19.5,26.1 32.6,15.6l267,-214.3a20,20 0,0 0,0 -31.2z" />
+</vector>

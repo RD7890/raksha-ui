@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pedometrum</string>
+    <string name="average">Media</string>
+    <string name="bloodoxygen">Saturatio Sanguinis Oxigeni</string>
+    <string name="bloodoxygenIndroduce" formatted="false">Saturatio oxigeni in sanguine (SpO2), etiam notus ut saturatio oxigeni, est mensura pressionis partialis oxigeni in sanguine, saepe expressa ut procentum (%). Saturatio oxigeni utitur ad aestimandam quantitatem oxigeni in sanguine et ostendit quam multae cellulae rubrae sanguinis oxigenentur a moleculis oxigeni. Saturatio normalis oxigeni in sanguine solent inter 95% et 100% esse in requie, sub quibusdam circumstantiis sicut altitudines elevatae aut personae cum morbis respiratoriis vel cardiovascularibus, norma levis variare potest.</string>
+    <string name="bloodoxygenTips">Consilia de Saturatio Sanguinis Oxigeni</string>
+    <string name="bloodpressure">Pressura Sanguinis</string>
+    <string name="bloodpressureIndroduce">Pressura sanguinis ad mensurandum utitur quae cor apud parietem arteriae per contractionem et relaxationem exercet. Pressura sanguinis optima solitudo est sub 120/80 mmHg. Excedens hunc ambitum augere potest periculum morborum cardiovascularium. Sub ambitu normali decrescere potest fatigationem et vertiginem causare. Mensurae constans et vitae salubris custodia ad servandam pressuram sanguinis normalem maxime necessaria sunt</string>
+    <string name="bloodpressureTips">Suggerentia</string>
+    <string name="calories">Caloriae</string>
+    <string name="fri">Ven</string>
+    <string name="measure_end">Mesurement finem</string>
+    <string name="measuring">Mensurans</string>
+    <string name="message">Nuntius</string>
+    <string name="mon">Lun</string>
+    <string name="noneData">Nullae Dati</string>
+    <string name="not_measure">Non mensus</string>
+    <string name="not_touch">Non indutus</string>
+    <string name="sat">Sab</string>
+    <string name="sportDistance">Distancia Athletica</string>
+    <string name="step">Passus</string>
+    <string name="stepWeekTotal">Statisticum Numeri Passuum Huius Hebdomadis</string>
+    <string name="steps">Passus</string>
+    <string name="sun">Dom</string>
+    <string name="targetStep_">Scopus Passuum:</string>
+    <string name="thisWeekTotalSteps">Summa Passuum Huius Hebdomadis</string>
+    <string name="thu">Jov</string>
+    <string name="tip">Horologium decidit, bene gerite ut indueatis</string>
+    <string name="tue">Mar</string>
+    <string name="wed">Mer</string>
+</resources>

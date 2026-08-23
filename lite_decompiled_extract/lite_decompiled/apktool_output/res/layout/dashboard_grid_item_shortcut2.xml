@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:id="@id/dashboard_grid_item_shortcut_icon" android:layout_width="@dimen/menu_icon_size_four" android:layout_height="@dimen/menu_icon_size_four" android:scaleType="fitCenter" android:contentDescription="@string/menu_item_shortcut" android:layout_marginStart="24.0dp" android:layout_marginEnd="24.0dp" />
+    <TextView android:textSize="24.0sp" android:ellipsize="end" android:gravity="center" android:id="@id/dashboard_grid_item_label" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:maxLines="1" />
+</LinearLayout>

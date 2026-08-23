@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:tag="layout/activity_step_0" android:background="@color/black" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/top_title_height" android:layout_marginTop="5.0dp" android:layout_marginStart="@dimen/titleBarMarginStart" android:layout_marginEnd="@dimen/titleBarMarginEnd">
+            <TextView android:textSize="@dimen/title_text_size" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/step" android:layout_centerVertical="true" />
+            <TextClock android:textSize="@dimen/title_text_size" android:textColor="@color/white" android:id="@id/top_clock" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+        <RelativeLayout android:layout_gravity="center_horizontal" android:layout_width="match_parent" android:layout_height="295.0dp" android:layout_marginTop="@dimen/progress_circle_padding_top" android:layoutDirection="ltr" android:layout_marginStart="10.0dp" android:layout_marginEnd="10.0dp">
+            <com.dwiot.dwstep.view.ActiveProgressCircle android:layout_gravity="center_horizontal" android:id="@id/active_progress_circle" android:layout_width="match_parent" android:layout_height="match_parent" app:animate="true" />
+            <View android:id="@id/view" android:layout_width="1.5dp" android:layout_height="match_parent" android:layout_centerHorizontal="true" />
+            <TextView android:textSize="@dimen/title_text_size" android:textColor="#2ecdff" android:id="@id/txtStep" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:layout_marginEnd="30.0dp" android:layout_alignEnd="@id/view" />
+            <TextView android:textSize="@dimen/title_text_size" android:textColor="#22ff53" android:id="@id/txtDistance" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="38.0dp" android:text="0" android:layout_marginEnd="30.0dp" android:layout_alignEnd="@id/view" />
+            <TextView android:textSize="@dimen/title_text_size" android:textColor="#ff1616" android:id="@id/txtCalories" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="75.0dp" android:text="0" android:layout_marginEnd="30.0dp" android:layout_alignEnd="@id/view" />
+        </RelativeLayout>
+        <com.dwiot.dwstep.view.ItemStepDataView android:id="@id/itemStepDataView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="40.0dp" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" app:itemIcon="@mipmap/step_mid_icon" app:itemLabel="@string/step" app:itemUnit="steps" app:itemValue="10000" />
+        <View android:background="#141414" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginTop="20.0dp" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" />
+        <com.dwiot.dwstep.view.ItemStepDataView android:id="@id/itemDistanceDataView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" app:itemIcon="@mipmap/distance_mid_icon" app:itemLabel="@string/sportDistance" app:itemUnit="km" app:itemValue="1.68" />
+        <View android:background="#141414" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginTop="20.0dp" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" />
+        <com.dwiot.dwstep.view.ItemStepDataView android:id="@id/itemCaloDataView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" app:itemIcon="@mipmap/calo_mid_icon" app:itemLabel="@string/calories" app:itemUnit="Kcal" app:itemValue="325" />
+        <View android:background="#141414" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginTop="20.0dp" android:layout_marginStart="20.0dp" android:layout_marginEnd="20.0dp" />
+        <LinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="40.0dp">
+            <TextView android:textColor="@color/color666" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/targetStep_" />
+            <TextView android:textSize="22.0sp" android:textColor="@color/white" android:id="@id/txtStepTarget" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="8000" />
+        </LinearLayout>
+        <TextView android:textSize="@dimen/title_text_small_size" android:textColor="#20c9ff" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="14.0dp" android:text="@string/stepWeekTotal" />
+        <com.dwiot.dwstep.view.StepWeekChart android:id="@id/stepBar" android:paddingTop="24.0dp" android:layout_width="match_parent" android:layout_height="160.0dp" android:layout_marginTop="28.0dp" android:layout_marginBottom="28.0dp" android:layout_marginStart="18.0dp" android:layout_marginEnd="18.0dp" />
+        <TextView android:textSize="@dimen/title_text_small_size" android:textColor="@color/color666" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/stepWeekTotal" />
+        <LinearLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:textSize="@dimen/title_text_size" android:textColor="@color/white" android:id="@id/txtTotalStep" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="8000" />
+            <TextView android:textSize="@dimen/title_text_small_size" android:textColor="@color/color666" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="40.0dp" android:text="@string/steps" android:layout_marginStart="7.0dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

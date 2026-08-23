@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/clock_container" android:background="@color/black" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.dw.launcher.ui.view.ViewPagerImpl android:id="@id/clock_container_viewpager" android:layout_width="match_parent" android:layout_height="match_parent" />
+</FrameLayout>

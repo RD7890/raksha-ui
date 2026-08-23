@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.dw.launcher.ui.view.SignalStrengthView android:id="@id/top_signal" android:layout_width="wrap_content" android:layout_height="30.0dp" />
+    <com.dw.launcher.ui.view.MarqueeTextView android:textSize="@dimen/top_status_bar_text_size" android:textColor="@color/white" android:ellipsize="marquee" android:gravity="center" android:id="@id/signal_cluster_label" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="wrap_content" android:layout_height="match_parent" android:singleLine="true" android:marqueeRepeatLimit="marquee_forever" android:layout_marginStart="3.0dp" />
+</LinearLayout>

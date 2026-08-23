@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.makeramen.roundedimageview.RoundedImageView android:id="@id/head_icon" android:layout_width="50.0dp" android:layout_height="50.0dp" android:layout_marginEnd="8.0dp" app:riv_oval="true" />
+    <TextView android:textSize="24.0dp" android:textColor="@color/black" android:id="@id/tv_text" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="95.0dp" android:layout_height="95.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/cyclic_item_shortcut_icon" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/shortcut_default_icon" />
+</FrameLayout>

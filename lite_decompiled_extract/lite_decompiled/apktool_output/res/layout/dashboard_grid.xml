@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dw.launcher.ui.view.NestedScrollableHost android:orientation="horizontal" android:id="@id/parent" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/iv_background" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" />
+    <com.scwang.smart.refresh.horizontal.SmartRefreshHorizontal android:id="@id/refreshLayout" android:layout_width="match_parent" android:layout_height="match_parent" app:srlEnableAutoLoadMore="false" app:srlEnableLoadMore="false" app:srlEnableOverScrollBounce="true" app:srlEnableOverScrollDrag="true" app:srlEnableRefresh="false">
+        <androidx.recyclerview.widget.RecyclerView android:orientation="horizontal" android:id="@id/grid_list" android:paddingTop="12.0dp" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" android:nestedScrollingEnabled="true" />
+    </com.scwang.smart.refresh.horizontal.SmartRefreshHorizontal>
+</com.dw.launcher.ui.view.NestedScrollableHost>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1.0" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp">
+        <androidx.appcompat.widget.AppCompatImageView android:id="@id/top_play_callback_wifi" android:background="@drawable/top_shortcut_container_background" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="6.0dp" android:src="@drawable/top_shortcut_wifi" android:layout_weight="1.0" />
+        <View android:layout_width="6.0dp" android:layout_height="0.0dp" />
+        <androidx.appcompat.widget.AppCompatImageView android:id="@id/top_play_callback_bluetooth" android:background="@drawable/top_shortcut_container_background" android:padding="10.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="6.0dp" android:src="@drawable/top_shortcut_bluetooth_2" android:layout_weight="1.0" />
+        <View android:layout_width="6.0dp" android:layout_height="0.0dp" />
+        <androidx.appcompat.widget.AppCompatImageView android:id="@id/top_play_callback_gprs" android:background="@drawable/top_shortcut_container_background" android:padding="10.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="6.0dp" android:src="@drawable/top_shortcut_gprs" android:layout_weight="1.0" />
+    </LinearLayout>
+    <View android:layout_width="6.0dp" android:layout_height="6.0dp" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1.0" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp">
+        <androidx.appcompat.widget.AppCompatImageView android:id="@id/top_play_callback_scene" android:background="@drawable/top_shortcut_container_background" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="6.0dp" android:src="@drawable/top_shortcut_ring" android:layout_weight="1.0" />
+        <View android:layout_width="6.0dp" android:layout_height="0.0dp" />
+        <androidx.appcompat.widget.AppCompatImageView android:id="@id/top_play_callback_super_power" android:background="@drawable/top_shortcut_container_background" android:padding="8.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="6.0dp" android:src="@drawable/top_shortcut_super_power" android:layout_weight="1.0" />
+        <View android:layout_width="6.0dp" android:layout_height="0.0dp" />
+        <androidx.appcompat.widget.AppCompatImageView android:id="@id/top_play_callback_settings" android:background="@drawable/top_shortcut_container_background" android:padding="9.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginBottom="6.0dp" android:src="@drawable/top_shortcut_settings" android:layout_weight="1.0" />
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="0.8" android:layout_marginStart="15.0dp">
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1.0">
+            <ImageView android:id="@id/vioce_imageview" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/top_shortcut_voice" />
+            <com.dw.launcher.ui.view.ScrollableSeekBar android:id="@id/voice_seekbar" android:layout_width="match_parent" android:layout_height="50.0dp" android:maxHeight="8.0dp" android:max="100" android:progress="15" android:progressDrawable="@drawable/voice_seekbar" android:minHeight="8.0dp" android:thumb="@drawable/vioce_seekbar_thumb" android:splitTrack="false" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1.0">
+            <ImageView android:id="@id/light_imageview" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/top_shortcut_light" />
+            <com.dw.launcher.ui.view.ScrollableSeekBar android:id="@id/light_seekbar" android:layout_width="match_parent" android:layout_height="50.0dp" android:maxHeight="8.0dp" android:max="255" android:progress="100" android:progressDrawable="@drawable/light_seekbar" android:minHeight="8.0dp" android:thumb="@drawable/light_seekbar_thumb" android:splitTrack="false" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

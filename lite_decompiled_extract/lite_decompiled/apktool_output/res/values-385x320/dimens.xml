@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="half_cyclic_guideline">100.0dp</dimen>
+    <dimen name="item_menu_size">25.0sp</dimen>
+    <dimen name="menu_icon_size">72.0dp</dimen>
+    <dimen name="menu_icon_size_four">120.0dp</dimen>
+    <dimen name="menu_icon_size_four_no_text">120.0dp</dimen>
+    <dimen name="menu_shortcut_size">60.0dp</dimen>
+    <dimen name="titleBarMarginEnd">32.0dp</dimen>
+    <dimen name="titleBarMarginStart">32.0dp</dimen>
+    <dimen name="title_text_padding_end">28.0dp</dimen>
+    <dimen name="title_text_padding_start">28.0dp</dimen>
+    <dimen name="top_title_height">45.0dp</dimen>
+</resources>

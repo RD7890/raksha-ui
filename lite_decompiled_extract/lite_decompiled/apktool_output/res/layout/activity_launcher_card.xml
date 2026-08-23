@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.fragment.app.FragmentContainerView android:name="com.dw.launcher.ui.fragment.launcher.LauncherCardFragment" android:id="@id/launcher_fragment_launcher" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <pl.droidsonroids.gif.GifImageView android:id="@id/ivLoading" android:layout_width="match_parent" android:layout_height="match_parent" />
+</FrameLayout>

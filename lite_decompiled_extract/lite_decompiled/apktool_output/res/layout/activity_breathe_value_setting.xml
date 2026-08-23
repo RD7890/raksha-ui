@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/black" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/top_title_height">
+        <TextView android:textSize="@dimen/title_text_size" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/titleBarMarginStart" android:text="@string/breathe" android:layout_centerVertical="true" />
+        <TextClock android:textSize="@dimen/title_text_size" android:id="@id/top_clock" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginEnd="@dimen/titleBarMarginEnd" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0">
+        <cn.carbswang.android.numberpickerview.library.NumberPickerView android:id="@id/numberPickerView" android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="picker_hour" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:npv_ItemPaddingHorizontal="5.0dp" app:npv_ItemPaddingVertical="12.0dp" app:npv_RespondChangeInMainThread="false" app:npv_ShowCount="3" app:npv_ShowDivider="false" app:npv_TextColorNormal="@color/color666" app:npv_TextColorSelected="#2ecb89" app:npv_TextSizeNormal="28.0sp" app:npv_TextSizeSelected="32.0sp" />
+        <ImageView android:background="@mipmap/breathe_rec" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true" />
+        <TextView android:textSize="16.0sp" android:textColor="#2ecb89" android:id="@id/txtUnit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:layout_marginEnd="30.0dp" />
+    </RelativeLayout>
+    <ImageView android:layout_gravity="center_horizontal" android:id="@id/ivSure" android:background="@mipmap/breathe_sure" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="20.0dp" />
+</LinearLayout>

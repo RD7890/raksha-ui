@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="chargeMarginTop">95.0dp</dimen>
+    <dimen name="dashboard_half_cyclic_earth_size">132.0px</dimen>
+    <dimen name="dashboard_half_cyclic_radius">96.0px</dimen>
+    <dimen name="half_cyclic_guideline">66.0px</dimen>
+    <dimen name="half_icon_size">50.0px</dimen>
+    <dimen name="item_menu_size">20.0sp</dimen>
+    <dimen name="menu_icon_size">80.0dp</dimen>
+    <dimen name="menu_icon_size_four">90.0dp</dimen>
+</resources>

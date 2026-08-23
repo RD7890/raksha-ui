@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="circle_one_menu">40.0dp</dimen>
+    <dimen name="dashboard_half_cyclic_earth_size">220.0dp</dimen>
+    <dimen name="dashboard_half_cyclic_radius">166.0dp</dimen>
+    <dimen name="disturb_margin_top">60.0dp</dimen>
+    <dimen name="half_cyclic_guideline">110.0dp</dimen>
+    <dimen name="menu_icon_size_four">105.0dp</dimen>
+    <dimen name="menu_icon_size_four_no_text">105.0dp</dimen>
+    <dimen name="menu_width">163.0dp</dimen>
+    <dimen name="titleBarMarginEnd">37.0dp</dimen>
+    <dimen name="titleBarMarginStart">37.0dp</dimen>
+</resources>
