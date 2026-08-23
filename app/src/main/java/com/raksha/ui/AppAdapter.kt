@@ -7,7 +7,8 @@ import com.raksha.ui.databinding.ItemAppBinding
 
 class AppAdapter(
     private val apps: List<AppInfo>,
-    private val onClick: (AppInfo) -> Unit
+    private val onClick: (AppInfo) -> Unit,
+    private val onLongClick: ((AppInfo) -> Unit)? = null
 ) : RecyclerView.Adapter<AppAdapter.AppViewHolder>() {
 
     inner class AppViewHolder(val binding: ItemAppBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -15,6 +16,11 @@ class AppAdapter(
             binding.tvName.text = app.name
             binding.ivIcon.setImageDrawable(app.icon)
             binding.root.setOnClickListener { onClick(app) }
+            if (onLongClick != null) {
+                binding.root.setOnLongClickListener { onLongClick?.invoke(app); true }
+            } else {
+                binding.root.isLongClickable = false
+            }
         }
     }
 

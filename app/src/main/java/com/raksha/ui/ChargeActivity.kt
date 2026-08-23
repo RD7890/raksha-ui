@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class ChargeActivity : AppCompatActivity() {
+class ChargeActivity : EdgeBackActivity() {
 
     private lateinit var batteryPercent: TextView
     private lateinit var timeView: TextView

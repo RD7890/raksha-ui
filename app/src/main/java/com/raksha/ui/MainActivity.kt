@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.ImageView
 import android.content.BroadcastReceiver
+import android.content.ComponentName
 import android.content.Context
 import android.content.IntentFilter
 import android.os.BatteryManager
@@ -35,7 +36,7 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : EdgeBackActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val handler = Handler(Looper.getMainLooper())
@@ -185,9 +186,14 @@ class MainActivity : AppCompatActivity() {
             override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
                 if (e1 != null && e2 != null) {
                     val diffY = e1.y - e2.y
-                    // Swipe up
+                    // Swipe up -> app drawer
                     if (diffY > 50 && Math.abs(velocityY) > 100) {
                         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        return true
+                    }
+                    // Swipe down -> dashboard
+                    if (-diffY > 50 && Math.abs(velocityY) > 100) {
+                        startActivity(Intent(this@MainActivity, DashboardActivity::class.java))
                         return true
                     }
                 }
@@ -221,6 +227,30 @@ class MainActivity : AppCompatActivity() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
+        binding.btnRecents.setOnClickListener {
+            startActivity(Intent(this, RecentsActivity::class.java))
+        }
+
+        binding.btnRecents.setOnLongClickListener {
+            lockScreen()
+            true
+        }
+    }
+
+    private fun lockScreen() {
+        val dpm = getSystemService(Context.DEVICE_POLICY_SERVICE) as android.app.admin.DevicePolicyManager
+        val admin = ComponentName(this, LockAdminReceiver::class.java)
+        if (dpm.isAdminActive(admin)) {
+            dpm.lockNow()
+        } else {
+            val intent = Intent(android.app.admin.DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
+            intent.putExtra(android.app.admin.DevicePolicyManager.EXTRA_DEVICE_ADMIN, admin)
+            intent.putExtra(
+                android.app.admin.DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+                getString(R.string.admin_explanation)
+            )
+            startActivity(intent)
+        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
@@ -288,6 +318,7 @@ class MainActivity : AppCompatActivity() {
         soundManager.playDingSound()
         val intent = packageManager.getLaunchIntentForPackage(packageName)
         if (intent != null) {
+            RecentsStore.record(this, packageName)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
