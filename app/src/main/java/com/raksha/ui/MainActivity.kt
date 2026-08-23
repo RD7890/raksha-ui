@@ -221,9 +221,9 @@ class MainActivity : EdgeBackActivity() {
         }
 
         binding.btnAppDrawer.setOnClickListener {
-            binding.rvApps.adapter = AppAdapter(allAppsList) { app ->
+            binding.rvApps.adapter = AppAdapter(allAppsList, onClick = { app ->
                 launchApp(app.packageName)
-            }
+            })
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
@@ -285,9 +285,9 @@ class MainActivity : EdgeBackActivity() {
             }.sortedBy { it.name.toString() }
 
             withContext(Dispatchers.Main) {
-                binding.rvApps.adapter = AppAdapter(allAppsList) { app ->
+                binding.rvApps.adapter = AppAdapter(allAppsList, onClick = { app ->
                     launchApp(app.packageName)
-                }
+                })
             }
         }
     }
